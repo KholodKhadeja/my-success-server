@@ -76,6 +76,7 @@ router.delete("/:id", async (req, res) => {
     ) {
       const lessonDeleteData = await deleteLessonById(validateValue.id);
       res.json(lessonDeleteData);
+      throw "item deleted"
     } else {
       throw "operation invalid aka unauthorized";
     }
