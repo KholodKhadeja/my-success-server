@@ -14,6 +14,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "lessons"
       }],
+      favlessons: [{
+        type: Schema.Types.ObjectId,
+        ref: "lessons"
+      }],
     profileImg: { type: String },
 })
 
@@ -31,7 +35,7 @@ const createNewUser = (userData) => {
     return user.save();
 }
 
-const updateUserById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,profileImg)=>{
+const updateUserById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg)=>{
         return User.findByIdAndUpdate(id,{
             firstname,
             lastname,
@@ -41,13 +45,15 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             studentclass,
             specialization,
             mylessons,
+            favlessons,
             profileImg
         })}
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
 
-module.exports={selectAllUsers,
+module.exports={User,
+    selectAllUsers,
     createNewUser, 
     updateUserById,
     deleteUserById,
