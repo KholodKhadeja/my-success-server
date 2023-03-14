@@ -55,15 +55,7 @@ router.patch("/", async (req, res) => {
       lessonId.teacherId === req.lessonData.id ||
       req.lessonData.allowAccess
     ) {
-      await updateLessonById(
-        validatedValue.subject,
-        validatedValue.topic,
-        validatedValue.learningLevel,
-        validatedValue.teacherId,
-        validatedValue.hour,
-        validatedValue.date,
-        validatedValue.students
-      );
+      await updateLessonById(validatedValue);
     } else {
       throw "operation invalid aka unauthorized";
     }
