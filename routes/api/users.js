@@ -20,6 +20,15 @@ router.get("/", async(req, res)=>{
         res.json(data); }
     catch(err){res.status(400).json({error:err});}
 });
+router.get("/getbyid/:id", async (req, res) => {
+    try {
+      const validatedValue = await validateFindUserByIdSchema(req.params);
+      const lessonData = await getUserById(validatedValue.id);
+      res.json(lessonData);
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  });
 
 router.post("/", async (req, res)=>{
     try{
@@ -34,11 +43,17 @@ router.post("/", async (req, res)=>{
 router.patch("/", async (req, res)=>{
     try{
         const validatedValues = await validateUpdateUserSchema(req.body);
-        const userData = await updateUserById(
-            validatedValues.email, validatedValues.firstname,
-            validatedValues.  lastname, validatedValues.password, validatedValues.role,
-            validatedValues.studentclass, validatedValues.specialization,
-            validatedValues.mylessons, validatedValues. favlessons, validatedValues. profileImg
+        const userData = await updateUserById(validatedValues.id,
+            validatedValues.firstname,
+            validatedValues.  lastname, 
+            validatedValues.email, 
+            validatedValues.password,
+             validatedValues.role,
+            validatedValues.studentclass, 
+            validatedValues.specialization,
+            validatedValues.mylessons,
+             validatedValues. favlessons,
+              validatedValues. profileImg
             );
          res.json({msg:"updated successfully!!"});
 
@@ -52,6 +67,7 @@ router.delete("/:id", async (req, res)=>{
     try{
         const validatedValue = await validateDeleteUserSchema(req.params);
         const userData = await deleteUserById(validatedValue.id);
+        res.json({msg:"deleted successfully!!"});
     }catch(err){
         res.status(400).json({err});
     }

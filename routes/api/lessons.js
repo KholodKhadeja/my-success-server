@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 router.get("/getbyid/:id", async (req, res) => {
   try {
     const validatedValue = await validateFindLessonByIdSchema(req.params);
-    const lessonData = await showLessonById(validatedValue.id);
+    const lessonData = await getLessonById(validatedValue.id);
     res.json(lessonData);
   } catch (err) {
     res.status(400).json({ error: err });
@@ -47,42 +47,61 @@ router.post("/", async (req, res) => {
 });
 
 router.patch("/", async (req, res) => {
-  try {
-    const validatedValue = await validateUpdateLessonSchema(req.body);
-    const lessonId = await getLessonById(validatedValue.id);
-    if (!lessonId) throw "lesson not exists";
-    if (
-      lessonId.teacherId === req.lessonData.id ||
-      req.lessonData.allowAccess
-    ) {
-      await updateLessonById(validatedValue);
-    } else {
-      throw "operation invalid aka unauthorized";
+    try{
+        const validatedValues = await validateUpdateLessonSchema(req.body);
+        const userData = await updateLessonById(validatedValues.id,
+            validatedValues.subject,validatedValues.topic,
+            validatedValues.learningLevel,
+            validatedValues.teacherId,
+            validatedValues.hour,
+            validatedValues.date,
+            validatedValues.students);
+         res.json({msg:"updated successfully!!"});
+    }catch(err){
+        console.log(err);
+       res.status(400).json({err});
     }
-    res.status(201).json({ msg: "put proccessed" });
-  } catch (err) {
-    res.status(400).json({ error: err });
-  }
+
+//   try {
+//     const validatedValue = await validateUpdateLessonSchema(req.body);
+//     const lessonId = await getLessonById(validatedValue.id);
+//     if (!lessonId) throw "lesson not exists";
+//     if (lessonId.teacherId === req.lessonData.id || req.lessonData.allowAccess ) {
+//       await updateLessonById(validatedValue);
+//     } else {
+//       throw "operation invalid aka unauthorized";
+//     }
+//     res.status(201).json({ msg: "put proccessed" });
+//   } catch (err) {
+//     res.status(400).json({ error: err });
+//   }
 });
 
 router.delete("/:id", async (req, res) => {
-  try {
-    const validateValue = await validateDeleteLessonSchema(req.params);
-    const lessonData = await deleteLessonById(validateValue.id);
-    if (!lessonData) throw "lesson not existed!";
-    if (
-      lessonData.teacherId == req.lessonData.id ||
-      req.lessonData.allowAccess
-    ) {
-      const lessonDeleteData = await deleteLessonById(validateValue.id);
-      res.json(lessonDeleteData);
-      throw "item deleted"
-    } else {
-      throw "operation invalid aka unauthorized";
+    try{
+        const validatedValue = await validateDeleteLessonSchema(req.params);
+        const lessonData = await deleteLessonById(validatedValue.id);
+        res.json({msg:"Lesson deleted successfully!!"});
+    }catch(err){
+        res.status(400).json({err});
     }
-  } catch (err) {
-    res.status(400).json({ error: err });
-  }
+
+//   try {
+//     const validateValue = await validateDeleteLessonSchema(req.params);
+//     const lessonData = await deleteLessonById(validateValue.id);
+//     if (!lessonData) throw "lesson not existed!";
+//     if (
+//       lessonData.teacherId == req.lessonData.id || req.lessonData.allowAccess
+//     ) {
+//       const lessonDeleteData = await deleteLessonById(validateValue.id);
+//       res.json(lessonDeleteData);
+//       throw "item deleted"
+//     } else {
+//       throw "operation invalid aka unauthorized";
+//     }
+//   } catch (err) {
+//     res.status(400).json({ error: err });
+//   }
 });
 
 module.exports = router;
