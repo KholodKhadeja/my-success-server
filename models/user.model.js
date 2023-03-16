@@ -19,6 +19,7 @@ const UserSchema = new Schema({
         ref: "lessons"
       }],
     profileImg: { type: String },
+    userstatus:{type: Boolean, default: true,required:true}
 })
 
 const User= mongoose.model("users", UserSchema);
@@ -35,7 +36,7 @@ const createNewUser = (userData) => {
     return user.save();
 }
 
-const updateUserById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg)=>{
+const updateUserById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
         return User.findByIdAndUpdate(id,{
             firstname,
             lastname,
@@ -46,7 +47,8 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             specialization,
             mylessons,
             favlessons,
-            profileImg
+            profileImg,
+            userstatus
         })}
 
 const deleteUserById = (id)=>{

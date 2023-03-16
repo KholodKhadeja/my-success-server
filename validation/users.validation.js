@@ -14,6 +14,7 @@ const newUserSchema = Joi.object({
     mylessons: Joi.array().items(Lesson),
     favlessons:Joi.array().items(Lesson),
     profileImg: Joi.string().uri(),
+    userstatus: Joi.boolean().required()
 });
 const validateNewUserSchema = (userInput)=>{
     return validate(newUserSchema, userInput);
@@ -30,6 +31,7 @@ const updateUserSchema = Joi.object({
     mylessons: Joi.array().items(Lesson),
     favlessons:Joi.array().items(Lesson),
     profileImg: Joi.string().uri(),
+    userstatus: Joi.boolean().required()
 });
 const validateUpdateUserSchema = (userInput)=>{
     return validate(updateUserSchema, userInput);

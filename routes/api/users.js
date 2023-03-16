@@ -53,7 +53,8 @@ router.patch("/", async (req, res)=>{
             validatedValues.specialization,
             validatedValues.mylessons,
              validatedValues. favlessons,
-              validatedValues. profileImg
+              validatedValues.profileImg,
+              validatedValues.userstatus
             );
          res.json({msg:"updated successfully!!"});
 
