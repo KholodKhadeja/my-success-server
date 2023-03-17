@@ -57,11 +57,15 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
 
+    const updatePasswordById=(id,password)=>{
+        return User.findByIdAndUpdate(id,{ password });
+    };
 module.exports={User,
     selectAllUsers,
     createNewUser, 
     updateUserById,
     deleteUserById,
     getUserById,
-    getUserByEmail
+    getUserByEmail,
+    updatePasswordById
     };

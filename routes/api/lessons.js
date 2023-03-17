@@ -34,11 +34,12 @@ router.get("/getbyid/:id", async (req, res) => {
   }
 });
 
-
 router.post("/", authMiddleware ,async (req, res) => {
   try {
     const validatedValue = await validateNewLessonSchema(req.body);
-    const lessonData = await createNewLesson(validatedValue.subject,validatedValue.topic,
+    const lessonData = await createNewLesson(
+      validatedValue.subject,
+      validatedValue.topic,
       validatedValue.learningLevel,
       validatedValue.hour,
       validatedValue.date,

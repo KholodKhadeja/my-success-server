@@ -8,8 +8,7 @@ return new Promise((resolve, reject)=>{
 
 const verifyToken = (token) =>{
     return new Promise((resolve, reject)=>{
-        jwt.verify(token, process.env.JWT, (err, payload) =>{/*jwt is doing the decoding*/
-        /*the payload is the part that contains sub, name, iat of the user*/
+        jwt.verify(token, process.env.JWT, (err, payload) =>{
             if(err) reject (err);
             else resolve(payload);
         });
