@@ -21,9 +21,9 @@ const validateNewUserSchema = (userInput)=>{
 };
 const updateUserSchema = Joi.object({
     id: Joi.string().length(24).hex().required().trim(),
-    firstname: Joi.string().min(2).max(255).required().trim(),
-    lastname: Joi.string().min(2).max(255).required().trim(),
-    email:Joi.string().email().required(),
+    firstname: Joi.string().min(2).max(100).required().trim(),
+    lastname: Joi.string().min(2).max(100).required().trim(),
+    email:Joi.string().email().required().trim(),
     password: Joi.string().regex(new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*() ]).{6,12}$")).required(),
     role: Joi.string().valid(...roleEnum).required(),
     studentclass: Joi.string().min(2).max(20).trim(),
@@ -49,6 +49,7 @@ const deleteUserSchema = Joi.object({
     const validateFindUserByIdSchema = (lessonInfo)=>{
         return validate(findUserByIdSchema, lessonInfo);
     }
+
 
   module.exports={
     validateDeleteUserSchema, 

@@ -7,7 +7,8 @@ router.use("/users", usersRouter);
 
 const lessonsRouter = require("./lessons");
 router.use("/lessons", lessonsRouter);
-// const authRouter = require("../api/auth");
-// router.use("/auth", authRouter);
+
+const authRouter = require("./auth");
+router.use("/auth", authRouter);
 
 module.exports=router;

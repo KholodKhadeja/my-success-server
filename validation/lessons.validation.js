@@ -7,7 +7,6 @@ const newLessonSchema = Joi.object({
     subject:Joi.string().min(2).max(255).required().trim(),
     topic:Joi.string().min(2).max(255).required().trim(),
     learningLevel:Joi.string().valid(...learningLevelEnum).required(),
-    teacherId:Joi.string().length(24).hex().required(),
     hour:Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).required(),
     date:Joi.date().required().greater(Date.now() + 48 * 60 * 60 * 1000),
     students:Joi.array().items(Joi.object({User})),
@@ -21,11 +20,11 @@ const updateLessonSchema = Joi.object({
     subject:Joi.string().min(2).max(255).required().trim(),
     topic:Joi.string().min(2).max(255).required().trim(),
     learningLevel:Joi.string().valid(...learningLevelEnum).required(),
-    teacherId:Joi.string().length(24).hex().required().trim(),
     hour:Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).required(),
     date:Joi.date().required().greater(Date.now() + 48 * 60 * 60 * 1000),
     students:Joi.array().items(Joi.object({User})),
 });
+
 const validateUpdateLessonSchema = (lessonInfo)=>{
     return validate(updateLessonSchema, lessonInfo);
 };

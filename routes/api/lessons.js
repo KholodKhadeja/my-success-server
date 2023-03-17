@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../../middleware/auth.middleware");
 const {
   selectAllLessons,
   createNewLesson,
@@ -33,51 +34,46 @@ router.get("/getbyid/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware ,async (req, res) => {
   try {
     const validatedValue = await validateNewLessonSchema(req.body);
-    console.log(req);
-    const lessonData = await createNewLesson(validatedValue);
-  
-    res.status(201).json({ msg: "added successfully!!" });
+    const lessonData = await createNewLesson(validatedValue.subject,validatedValue.topic,
+      validatedValue.learningLevel,
+      validatedValue.hour,
+      validatedValue.date,
+      validatedValue.students,
+      req.userData.id);
+    res.status(201).json({ msg: "Lesson added successfully!!" });
   } catch (err) {
-    console.log(req.body);
     res.status(400).json({ err });
   }
 });
 
-router.patch("/", async (req, res) => {
+router.patch("/", authMiddleware ,async (req, res) => {
     try{
         const validatedValues = await validateUpdateLessonSchema(req.body);
-        const userData = await updateLessonById(validatedValues.id,
+        const lessonId = await getLessonById(validatedValues.id);
+        console.log("lesson id", lessonId);
+        console.log(req.userData.id);
+        
+        if (!lessonId) throw "lesson not exists";
+        if (req.userData.allowAccess) {
+          await updateLessonById(validatedValues.id,
             validatedValues.subject,validatedValues.topic,
             validatedValues.learningLevel,
-            validatedValues.teacherId,
             validatedValues.hour,
             validatedValues.date,
             validatedValues.students);
-         res.json({msg:"updated successfully!!"});
-    }catch(err){
-        console.log(err);
-       res.status(400).json({err});
-    }
-
-//   try {
-//     const validatedValue = await validateUpdateLessonSchema(req.body);
-//     const lessonId = await getLessonById(validatedValue.id);
-//     if (!lessonId) throw "lesson not exists";
-//     if (lessonId.teacherId === req.lessonData.id || req.lessonData.allowAccess ) {
-//       await updateLessonById(validatedValue);
-//     } else {
-//       throw "operation invalid aka unauthorized";
-//     }
-//     res.status(201).json({ msg: "put proccessed" });
-//   } catch (err) {
-//     res.status(400).json({ error: err });
-//   }
+        } else {
+          throw "operation invalid aka unauthorized";
+        }
+        res.status(201).json({ msg: "put proccessed" });
+      } catch (err) {
+        res.status(400).json({ error: err });
+      }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware ,async (req, res) => {
     try{
         const validatedValue = await validateDeleteLessonSchema(req.params);
         const lessonData = await deleteLessonById(validatedValue.id);

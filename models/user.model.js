@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     email:{type:String, required:true, unique: true},
     firstname:{type:String, required:true},
     lastname:{type:String, required:true},
@@ -22,13 +22,16 @@ const UserSchema = new Schema({
     userstatus:{type: Boolean, default: true,required:true}
 })
 
-const User= mongoose.model("users", UserSchema);
+const User= mongoose.model("users", userSchema);
 
 const selectAllUsers = () =>{
     return User.find({});
 };
 const getUserById = (id)=>{
     return User.findById(id);
+}
+const getUserByEmail = (email)=>{
+    return User.findOne({email}).exec();
 }
 
 const createNewUser = (userData) => {
@@ -59,5 +62,6 @@ module.exports={User,
     createNewUser, 
     updateUserById,
     deleteUserById,
-    getUserById
+    getUserById,
+    getUserByEmail
     };
