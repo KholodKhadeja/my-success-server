@@ -12,6 +12,7 @@ router.get("/", async (req, res) => {
     const allLessons = await selectAllLessons();
     res.json(allLessons);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ error: err });
   }
 });

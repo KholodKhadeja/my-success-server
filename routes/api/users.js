@@ -18,7 +18,9 @@ router.get("/", async(req, res)=>{
     try{
         const data = await selectAllUsers();
         res.json(data); }
-    catch(err){res.status(400).json({error:err});}
+    catch(err){
+        console.log(err);
+        res.status(400).json({error:err});}
 });
 router.get("/getbyid/:id", async (req, res) => {
     try {
