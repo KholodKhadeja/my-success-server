@@ -42,7 +42,7 @@ connectToDB
   .catch((err) => {
     debug("fatal error");
     debug(err);
-    process.exit(1);
+    // process.exit(1);
   });
 /**
  * Listen on provided port, on all network interfaces.
