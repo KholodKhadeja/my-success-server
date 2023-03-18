@@ -3,9 +3,10 @@
 /**
  * Module dependencies.
  */
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-});
+/*no need when deploying to render*/
+// require("dotenv").config({
+//   path: `.env.${process.env.NODE_ENV}`,
+// });
 
 var app = require('../app');
 var debug = require('debug')('mysuccess-server:server');
@@ -100,5 +101,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  debug('Listening on render');
 }
