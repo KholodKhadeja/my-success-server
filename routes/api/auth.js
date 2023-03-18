@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const { createNewUser, getUserById, getUserByEmail, updatePasswordById} = require("../../models/user.model");
-const { validateRegisterSchema, validateLoginSchema, validateForgetPasswordSchema} = require("../../validation/auth.validation");
+const { validateRegisterSchema, validateLoginSchema} = require("../../validation/auth.validation");
 const {createHash, cmpHash} = require("../../config/bcrypt");
 const {getToken, verifyToken} = require("../../config/jwt");
 const validate = require('../../validation/validate');
