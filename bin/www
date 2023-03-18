@@ -13,7 +13,15 @@ var debug = require('debug')('mysuccess-server:server');
 var http = require('http');
 const connectToDB = require("../models/connectToDB");
 
-
+process.on('uncaughtException', err => {
+  console.log('uncaughtException');
+  console.log(err.name, err.message);
+  console.log(err);
+  console.log('Shutting down');
+  server.close(() => {
+    process.exit(1);
+  });
+});
 /**
  * Get port from environment and store in Express.
  */
@@ -103,3 +111,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on render');
 }
+
+
