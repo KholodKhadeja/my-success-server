@@ -37,13 +37,13 @@ router.post("/login", async(req, res)=>{
     if(!isEqualPasswords){
         throw "invalid password";
     }
-    const token = await getToken({ /*this data are passed in the payload*/
-        email:user.email,
-        id:user._id,
-        role: user.role,
-    });
+    // const token = await getToken({
+    //     email:user.email,
+    //     id:user._id,
+    //     role: user.role,
+    // });
     res.status(201). json({msg:"login successfully!!!!!"});
-    console.log({token});/*the token that was created in the loggin proccess*/
+
     }catch(err){
         res.status(400).json({ err});
       }
