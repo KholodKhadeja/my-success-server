@@ -14,10 +14,10 @@ var http = require('http');
 const connectToDB = require("../models/connectToDB");
 
 process.on('uncaughtException', err => {
-  console.log('uncaughtException');
-  console.log(err.name, err.message);
-  console.log(err);
-  console.log('Shutting down');
+  debug('uncaughtException');
+  debug(err.name, err.message);
+  debug(err);
+  debug('Shutting down');
   server.close(() => {
     process.exit(1);
   });
