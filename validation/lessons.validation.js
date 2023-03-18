@@ -20,7 +20,7 @@ const updateLessonSchema = joi.object({
     subject:joi.string().min(2).max(255).required().trim(),
     topic:joi.string().min(2).max(255).required().trim(),
     learningLevel:joi.string().valid(...learningLevelEnum).required(),
-    hour:joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).required(),
+    hour:joi.string().required(),
     date:joi.date().required().greater(Date.now() + 48 * 60 * 60 * 1000),
     students:joi.array().items(joi.object({User})),
 });

@@ -1,16 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../../middleware/auth.middleware");
-const {
-  selectAllLessons,
-  createNewLesson,
-  updateLessonById,
-  deleteLessonById,
-  getLessonById,
-} = require("../../models/lesson.model");
-const {
-  validateDeleteLessonSchema,
-  validateNewLessonSchema,
+const {selectAllLessons,createNewLesson,updateLessonById,deleteLessonById,getLessonById,} = require("../../models/lesson.model");
+const { validateDeleteLessonSchema,validateNewLessonSchema,
   validateUpdateLessonSchema,
   validateFindLessonByIdSchema,
 } = require("../../validation/lessons.validation");

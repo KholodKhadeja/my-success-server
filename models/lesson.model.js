@@ -7,8 +7,7 @@ const LessonSchema = new Schema({
 subject:{type:String, required:true},
 topic:{type:String, required:true},
 learningLevel:{type:String,required:true},
-hour:{type: Date,required: true,get: (v) => {return new Date(v).toISOString().slice(11, 16); },
-set: (v) => {  const d = new Date(); const [hours, minutes] = v.split(":"); d.setUTCHours(hours, minutes, 0, 0); return d;}},
+hour:{type:String, required:true},
 date:{ type: Date,required:true, min: new Date().toISOString().slice(0, 10),},
 students: [{ type: Schema.Types.ObjectId, ref: "users" }],
 teacherId: {type: Schema.Types.ObjectId, ref: "users"},
@@ -17,7 +16,7 @@ teacherId: {type: Schema.Types.ObjectId, ref: "users"},
 const Lesson= mongoose.model("lessons", LessonSchema);
 
 const selectAllLessons = () =>{
-   return Lesson.find({});
+   return Lesson.find();
 };
 const getLessonById = (id)=>{
     return Lesson.findById(id);
