@@ -1,4 +1,4 @@
-const joi = require("Joi");
+const joi = require("joi");
 const  validate = require("./validate");
 const roleEnum = require("../enum/Role.Enum");
 const { Lesson } = require("../models/lesson.model");

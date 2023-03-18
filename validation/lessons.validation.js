@@ -1,4 +1,4 @@
-const joi = require("Joi");
+const joi = require("joi");
 const  validate = require("./validate");
 const learningLevelEnum = require("../enum/LearningLevel.Enum");
 const { User } = require("../models/user.model");
