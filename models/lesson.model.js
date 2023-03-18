@@ -17,7 +17,7 @@ teacherId: {type: Schema.Types.ObjectId, ref: "users"},
 const Lesson= mongoose.model("lessons", LessonSchema);
 
 const selectAllLessons = () =>{
-   return Lesson.find();
+   return Lesson.find({});
 };
 const getLessonById = (id)=>{
     return Lesson.findById(id);
