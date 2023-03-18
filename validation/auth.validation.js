@@ -31,13 +31,13 @@ const validateLoginSchema = (userInput) =>{
 return validate(loginSchema, userInput);
 }
 
-// const forgetPasswordSchema = joi.object({
-//   email: joi.string().min(8).max(255).email().required().trim(),
-// });
+const forgetPasswordSchema = joi.object({
+  email: joi.string().min(8).max(255).email().required().trim(),
+});
 
-// const validateForgetPasswordSchema = (userInput)=>{
-//   return validate(forgetPasswordSchema, userInput);
-// }
+const validateForgetPasswordSchema = (userInput)=>{
+  return validate(forgetPasswordSchema, userInput);
+}
 
 module.exports={
     validateRegisterSchema,
