@@ -29,7 +29,7 @@ router.post("/register", async(req, res)=>{
 router.post("/login", async(req, res)=>{
     try{
          const validatedData = await validateLoginSchema(req.body);
-         const user = await getUserByEmail(validatedData.email);/*this variables hold the user that this email matches him */
+         const user = await getUserByEmail(validatedData.email);
          if(!user){
             throw "invalid email";
          }
