@@ -42,7 +42,7 @@ router.post("/login", async(req, res)=>{
         id:user._id.valueOf(),
         role: user.role,
     });
-    res.status(201). json({msg:"login successfully!!!!!"});
+    res.status(201). json({msg:"login successfully!!!!!"}, token);
 
     }catch(err){
         res.status(400).json({ err});

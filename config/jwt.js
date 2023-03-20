@@ -6,6 +6,7 @@ return new Promise((resolve, reject)=>{
 });
 };
 
+
 const verifyToken = (token) =>{
     return new Promise((resolve, reject)=>{
         jwt.verify(token, process.env.JWT, (err, payload) =>{
