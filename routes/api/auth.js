@@ -34,14 +34,16 @@ router.post("/login", async(req, res)=>{
             throw "invalid email";
          }
     const isEqualPasswords = await cmpHash(validatedData.password, user.password);
+    console.log(validatedData.password+"validated data");
+    console.log(user.password + "user password");
     if(!isEqualPasswords){
         throw "invalid password";
     }
-    // const token = await getToken({
-    //     email:user.email,
-    //     id:user._id,
-    //     role: user.role,
-    // });
+    const token = await getToken({
+        email:user.email,
+        id:user._id,
+        role: user.role,
+    });
     res.status(201). json({msg:"login successfully!!!!!"});
 
     }catch(err){
