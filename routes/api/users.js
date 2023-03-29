@@ -22,11 +22,11 @@ router.get("/", async(req, res)=>{
         console.log(err);
         res.status(400).json({error:err});}
 });
-router.get("/getbyid/:id", async (req, res) => {
-    try {
+router.get("/getuserbyid/:id", async (req, res) => {
+    try { 
       const validatedValue = await validateFindUserByIdSchema(req.params);
-      const lessonData = await getUserById(validatedValue.id);
-      res.json(lessonData);
+      const userData = await getUserById(validatedValue.id);
+      res.json(userData);
     } catch (err) {
       res.status(400).json({ error: err });
     }
