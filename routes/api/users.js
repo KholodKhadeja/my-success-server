@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 router.get("/getuserbyid/:id", async (req, res) => {
   try {
     const validatedValue = await validateFindUserByIdSchema(req.params.id);
-    const userInfo = await getUserById(validatedValue.id);
+    const userInfo = await getUserById(validatedValue);
     res.json(userInfo);
   } catch (err) {
     res.status(400).json({ error: err });
