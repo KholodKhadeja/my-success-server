@@ -5,7 +5,8 @@ const { selectAllUsers,
     createNewUser, 
     updateUserById,
     deleteUserById,
-    getUserById} = require("../../models/user.model");
+    getUserById,
+    User} = require("../../models/user.model");
 const {
     validateDeleteUserSchema, 
     validateNewUserSchema,
@@ -24,10 +25,13 @@ router.get("/", async(req, res)=>{
 });
 router.get("/getuserbyid/:id", async (req, res) => {
     try { 
-      const validatedValue = await validateFindUserByIdSchema(req.params);
-      const userData = await getUserById(validatedValue.id);
-      res.json(userData);
-      console.log(userData);
+        const userId= req.params.id;
+        const userInfo = await User.findById({userId});
+        return res.send(userInfo);
+    //   const validatedValue = await validateFindUserByIdSchema(req.params);
+    //   const userData = await getUserById(validatedValue.id);
+    //   res.json(userData);
+    //   console.log(userData);
     } catch (err) {
       res.status(400).json({ error: err });
     }
