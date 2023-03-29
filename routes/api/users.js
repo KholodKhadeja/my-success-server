@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 router.get("/getuserbyid/:id", async (req, res) => {
   try {
-    const validatedValue = await validateFindUserByIdSchema(req.params);
+    const validatedValue = await validateFindUserByIdSchema(req.params.id);
     const userInfo = await getUserById(validatedValue.id);
     res.json(userInfo);
   } catch (err) {
