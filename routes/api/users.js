@@ -27,6 +27,7 @@ router.get("/getuserbyid/:id", async (req, res) => {
       const validatedValue = await validateFindUserByIdSchema(req.params);
       const userData = await getUserById(validatedValue.id);
       res.json(userData);
+      console.log(userData);
     } catch (err) {
       res.status(400).json({ error: err });
     }

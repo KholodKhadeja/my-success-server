@@ -27,6 +27,7 @@ const User= mongoose.model("users", userSchema);
 const selectAllUsers = () =>{
     return User.find({});
 };
+
 const getUserById = (id)=>{
     return User.findById(id);
 }
