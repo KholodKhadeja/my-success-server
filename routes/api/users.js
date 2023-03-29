@@ -25,8 +25,8 @@ router.get("/", async(req, res)=>{
 });
 router.get("/getuserbyid/:id", async (req, res) => {
     try { 
-        const userId= req.params.id;
-        const userInfo = await User.findById({userId});
+        const userId= req.params._id;
+        const userInfo = await User.findById({_id:userId});
         return res.send(userInfo);
     //   const validatedValue = await validateFindUserByIdSchema(req.params);
     //   const userData = await getUserById(validatedValue.id);
