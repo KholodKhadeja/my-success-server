@@ -25,8 +25,9 @@ const selectAllUsers = () =>{
 };
 
 const getUserById = (id)=>{
-    return User.findById(id);
+    return User.findById({id});
 }
+
 const getUserByEmail = (email)=>{
     return User.findOne({email}).exec();
 }
