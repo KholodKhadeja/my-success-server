@@ -14,7 +14,7 @@ const userSchema = new Schema({
       favlessons: [{
         type: Schema.Types.ObjectId,
         ref: "lessons" }],
-    profileImg: { data: Buffer, type: String},
+    profileImg: { data: Buffer, contentType: String},
     userstatus:{type: Boolean, default: true,required:true}
 })
 
