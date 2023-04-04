@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const User= require("../../models/user.model");
+const Lesson=require("../../models/lesson.model");
 
 const { selectAllUsers,
     createNewUser, 
@@ -42,6 +44,22 @@ router.post("/", async (req, res)=>{
     }
 });
 
+router.post('/:userId/mylessons', async (req, res) => {
+    const { userId } = req.params;
+    const { subject, topic, learningLevel, hour, date } = req.body;
+    try { const user = await User.findById(userId);
+    if (!user) {return res.status(404).json({ error: 'User not found' });}
+      const lesson = new Lesson({ subject,topic,learningLevel,hour,date, students: [user._id],teacherId: user.teacherId });
+      await lesson.save();
+      await User.findByIdAndUpdate(userId,{ $push: { mylessons: lesson._id } },{ new: true } );
+      res.status(201).json(lesson);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
+
 router.patch("/", async (req, res)=>{
     try{
         const validatedValues = await validateUpdateUserSchema(req.body);
@@ -65,6 +83,18 @@ router.patch("/", async (req, res)=>{
        res.status(400).json({err});
     }
 });
+
+// router.patch("/addlesson/:id", async (req, res)=>{er
+//     try{
+//         const validatedValues = await validateUpdateUserSchema(req.body);
+//         const userData = await updateUserById(validatedValues.id,
+//             validatedValues.mylessons, );
+//          res.json({msg:"updated successfully!!"});
+//     }catch(err){
+//         console.log(err);
+//        res.status(400).json({err});
+//     }
+// });
 
 router.delete("/:id", async (req, res)=>{
     try{
