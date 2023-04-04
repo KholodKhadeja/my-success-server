@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User= require("../../models/user.model");
-const Lesson=require("../../models/lesson.model");
+const {Lesson}=require("../../models/lesson.model");
 
 const { selectAllUsers,
     createNewUser, 
