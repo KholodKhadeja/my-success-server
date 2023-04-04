@@ -8,7 +8,19 @@ subject:{type:String, required:true},
 topic:{type:String, required:true},
 learningLevel:{type:String,required:true},
 hour:{type: Date,required: true,get: (v) => {return new Date(v).toISOString().slice(11, 16); },
-set: (v) => {  const d = new Date(); const [hours, minutes] = v.split(":"); d.setUTCHours(hours, minutes, 0, 0); return d;}},
+set: (v) => {
+    if (!v || typeof v !== 'string') {
+        return undefined;
+    }
+    const [hoursStr, minutesStr] = v.split(':');
+    const hours = parseInt(hoursStr, 10);
+    const minutes = parseInt(minutesStr, 10);
+    if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+        return undefined;
+    }
+    const d = new Date();
+    d.setUTCHours(hours, minutes, 0, 0);
+    return d;}},
 date:{ type: Date,required:true, min: new Date().toISOString().slice(0, 10),},
 students: [{ type: Schema.Types.ObjectId, ref: "users" }],
 teacherId: {type: Schema.Types.ObjectId, ref: "users"},
