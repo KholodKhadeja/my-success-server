@@ -47,7 +47,7 @@ router.post("/", async (req, res)=>{
 router.post('/:userId/mylessons', async (req, res) => {
     const { userId } = req.params;
     const { subject, topic, learningLevel, hour, date } = req.body;
-    try { const user = await getUserById({_id:userId});
+    try { const user = await getUserById(userId);
     if (!user) {return res.status(404).json({ error: 'User not found' });}
       const lesson = new Lesson({ subject,topic,learningLevel,hour,date, students: [user._id],teacherId: user.teacherId });
       await lesson.save();
