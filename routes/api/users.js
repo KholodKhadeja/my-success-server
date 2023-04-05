@@ -45,7 +45,7 @@ router.post("/", async (req, res)=>{
     }
 });
 
-router.patch('/:userId/mylessons', async (req, res) => {
+router.post('/:userId/mylessons', async (req, res) => {
     const { userId } = req.params;
 
     const { subject, topic, learningLevel, hour, date } = req.body;
@@ -59,7 +59,7 @@ router.patch('/:userId/mylessons', async (req, res) => {
       res.status(201).json("lesson added to mylessons");
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).json(error);
     }
   });
 
