@@ -45,9 +45,9 @@ router.post("/", async (req, res)=>{
     }
 });
 
-router.post('/:userId/mylessons', async (req, res) => {
+router.patch('/:userId/mylessons', async (req, res) => {
     const { userId } = req.params;
-    console.log(userId, "userid");
+
     const { subject, topic, learningLevel, hour, date } = req.body;
     const theUser = await getUserById(userId);
     try { 
@@ -55,7 +55,8 @@ router.post('/:userId/mylessons', async (req, res) => {
       const lesson = new Lesson({ subject , topic , learningLevel ,hour, date, students: [],teacherId: theUser._id});
       await lesson.save();
       const updatedUser= await updateUserLessonById(userId,{ $push: { mylessons: lesson._id} },{ new: true } );
-      res.status(201).json(updatedUser);
+      console.log(updateUserById);
+      res.status(201).json("lesson added to mylessons");
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Server error' });

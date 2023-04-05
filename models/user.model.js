@@ -52,7 +52,7 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             userstatus
         })}
 
-        const updateUserLessonById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
+        const updateUserLessonById=(id,mylessons)=>{
             return User.findByIdAndUpdate(id,{
                 mylessons
             })}
