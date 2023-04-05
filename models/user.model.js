@@ -10,7 +10,8 @@ const userSchema = new Schema({
     role:{type:String,default: roleEnum[0], enum: [...roleEnum]},
     studentclass:{type:String},
     specialization:{type:String},
-    mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    // mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    mylessons: {type: Array},
       favlessons: [{
         type: Schema.Types.ObjectId,
         ref: "lessons" }],
