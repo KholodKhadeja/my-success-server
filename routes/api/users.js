@@ -48,14 +48,21 @@ router.post("/", async (req, res)=>{
 router.post('/:userId/mylessons', async (req, res) => {
     const { userId } = req.params;
 
-    const { subject, topic, learningLevel, hour, date } = req.body;
+    let lesson = req.body;
     const theUser = await getUserById(userId);
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-      const lesson = new Lesson({ subject , topic , learningLevel ,hour, date, students: [],teacherId: theUser._id});
-      await lesson.save();
+     lesson = new Lesson({ subject:lesson.subject , 
+        topic: lesson.topic,
+         learningLevel:lesson.learningLevel ,
+         hour:lesson.hour,
+         date:lesson.date, 
+         students: [],
+         teacherId: theUser._id});
+      
+      lesson = await lesson.save();
       const updatedUser= await updateUserLessonById(userId,{ $push: { mylessons: lesson} },{ new: true } );
-      console.log(updateUserById);
+      console.log(updateUserById)
       res.status(201).json("lesson added to mylessons");
     } catch (err) {
       console.error(err);
