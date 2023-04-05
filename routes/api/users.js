@@ -57,7 +57,7 @@ router.post('/:userId/mylessons', async (req, res) => {
          hour:lesson.hour,
          date:lesson.date, 
          students: [],
-         teacherId: ObjectId(userId)});
+         teacherId: {_id:userId}});
       lesson = await lesson.save();
       console.log("lesson", lesson);
       console.log(theUser);
