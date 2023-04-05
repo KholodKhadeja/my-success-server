@@ -52,6 +52,11 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             userstatus
         })}
 
+        const updateUserLessonById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
+            return User.findByIdAndUpdate(id,{
+                mylessons
+            })}
+
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
 
@@ -60,6 +65,7 @@ const deleteUserById = (id)=>{
     };
 module.exports={User,
     selectAllUsers,
+    updateUserLessonById,
     createNewUser, 
     updateUserById,
     deleteUserById,

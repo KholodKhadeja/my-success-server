@@ -5,6 +5,7 @@ const {Lesson}=require("../../models/lesson.model");
 
 const { selectAllUsers,
     createNewUser, 
+    updateUserLessonById,
     updateUserById,
     deleteUserById,
     getUserById} = require("../../models/user.model");
@@ -55,7 +56,7 @@ router.post('/:userId/mylessons', async (req, res) => {
       const lesson = new Lesson({ subject , topic , learningLevel ,hour, date, students: [],teacherId: theUser._id});
       console.log("the lesson", lesson);
       await lesson.save();
-      await updateUserById(userId,{ $push: { mylessons: lesson} },{ new: true } );
+      await updateUserLessonById(userId,{ $push: { mylessons: lesson} },{ new: true } );
       res.status(201).json(lesson);
     } catch (err) {
       console.error(err);
