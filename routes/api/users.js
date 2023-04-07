@@ -94,7 +94,7 @@ router.patch("/", async (req, res)=>{
     }
 });
 
-router.put("/:userId/lessons/:lessonId", async (req, res)=>{
+router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
   try{
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
