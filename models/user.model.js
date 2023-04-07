@@ -57,14 +57,8 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
-        return User.findOneAndUpdate(
-            { _id: userId, "mylessons._id": lessonId },
-            { $set: { "mylessons.$[elem]": updatedData } },
-            { new: true,
-                arrayFilters: [{ "elem._id": lessonId }]
-             }
-          );
-
+        const userMyLessons = getUserById(userId).mylessons;
+        return  userMyLessons.findOneAndUpdate( lessonId, updatedData, { new: true } );
         // return User.findByIdAndUpdate(
         //     userId, 
         //     { $set: { "mylessons.$[elem]": updatedData } },
