@@ -97,7 +97,7 @@ router.patch("/updateuserlesson/:id", async (req, res)=>{
   try{
     const lessonId = req.params.id;
     const updatedData = req.body;
-    const updatedLesson = await updateUserSpecificLessonByUserId(req.params.lessonId, req.body);
+    const updatedLesson = await updateUserSpecificLessonByUserId(lessonId,updatedData);
    res.json({msg:"updated lesson successfully!!"});
   }catch(err){
      res.status(400).json({err});
