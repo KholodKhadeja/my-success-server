@@ -57,6 +57,19 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
+        const filter = { _id: userId, 'mylessons._id': lessonId };
+        const update = { $set: { "mylessons.$": updatedData} };
+        const options = { new: true };
+        User.findOneAndUpdate(filter, update, options)
+          .then(updatedUser => {
+            console.log('Updated user:', updatedUser);
+          })
+          .catch(error => {
+            console.error('Failed to update user:', error);
+          });
+        }
+        // const userLessons = getUserById(userId).mylessons;
+        // return userLessons.findOneAndUpdate(lessonId,updatedData, { new: true })};
         // return User.findOneAndUpdate(
         //     { _id: userId, "mylessons._id": lessonId },
         //     { $set: { "mylessons.$[elem]": updatedData } },
