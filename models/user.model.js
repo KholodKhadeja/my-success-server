@@ -56,9 +56,19 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
  const updateUserLessonById=(id,mylessons)=>{
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
-    const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
+    const updateUserSpecificLessonByUserId=async (userId, lessonId, updatedData)=>{
+        try{
         const userMyLessons = getUserById(userId).mylessons;
-        return  userMyLessons.findOneAndUpdate( lessonId, updatedData, { new: true } );
+        // return  userMyLessons.findOneAndUpdate( lessonId, updatedData, { new: true });
+     const updatedLesson = await userMyLessons.findOneAndUpdate( lessonId, updatedData, { new: true });
+    if (!updatedLesson) {
+      throw new Error('Lesson not found');
+    }
+    return updatedLesson;
+  } catch (error) {
+    throw new Error(`Failed to update lesson: ${error.message}`);
+  }
+
         // return User.findByIdAndUpdate(
         //     userId, 
         //     { $set: { "mylessons.$[elem]": updatedData } },
