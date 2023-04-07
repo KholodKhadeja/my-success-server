@@ -53,8 +53,8 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             userstatus
         })}
 
-        const updateUserLessonById=(id,mylessons)=>{
-            return User.findByIdAndUpdate(id,mylessons, { new: true })};
+ const updateUserLessonById=(id,mylessons)=>{
+    return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
