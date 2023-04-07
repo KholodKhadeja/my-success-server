@@ -99,11 +99,6 @@ router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
     const updatedData = req.body;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
     const updatedLesson = await updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
     res.json({msg:"updated lesson successfully!!", updateUserById});
   } catch (error) {
