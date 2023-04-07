@@ -57,7 +57,7 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(lessonId, updatedData)=>{
-        return User.findByIdAndUpdate(lessonId, { $set: { "mylessons.$": updatedData } }, { new: true })};
+        return User.findByIdAndUpdate(lessonId, { $set: { "mylessons.$": updatedData } }, { new: false })};
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
