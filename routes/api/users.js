@@ -99,6 +99,7 @@ router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
     const updatedData = req.body;
+    console.log("updated", updatedData);
     const updatedLesson = await updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
     res.json({msg:"updated lesson successfully!!"});
     console.log(updatedLesson);
