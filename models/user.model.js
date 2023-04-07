@@ -57,8 +57,8 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
-        let userLessons = getUserById(userId);
-        let myLessonIndex = userLessons.find(obj => obj._id === lessonId);
+       const userLessons = getUserById(userId);
+        const myLessonIndex =  userLessons.findIndex((lesson) => lesson._id === lessonId);
         if (myLessonIndex !== -1) {
             let myLesson = userLessons[myLessonIndex];
             let updatedLesson = { ...myLesson, ...updatedData };
