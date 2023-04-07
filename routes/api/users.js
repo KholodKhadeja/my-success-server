@@ -94,15 +94,15 @@ router.patch("/", async (req, res)=>{
     }
 });
 
-router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
+router.put("/:userId/lessons/:lessonId", async (req, res)=>{
   try{
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
     const updatedData = req.body;
     const updatedLesson = await updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
-    res.json({msg:"updated lesson successfully!!", updateUserById});
+    res.json({msg:"updated lesson successfully!!"});
+    console.log(updatedLesson);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Failed to update lesson' });
   }
 });

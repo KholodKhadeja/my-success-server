@@ -61,7 +61,7 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
             userId, 
             { $set: { "mylessons.$[elem]": updatedData } },
             { 
-              new: false,
+              new: true,
               arrayFilters: [{ "elem._id": lessonId }]
             }
           );
