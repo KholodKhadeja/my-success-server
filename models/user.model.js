@@ -57,36 +57,12 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
-       const userLessons = getUserById(userId);
-        const myLessonIndex =  userLessons.findIndex((lesson) => lesson._id === lessonId);
-        if (myLessonIndex !== -1) {
-            let myLesson = userLessons[myLessonIndex];
-            let updatedLesson = { ...myLesson, ...updatedData };
-            
-            let updatedUserLessons = userLessons.map((lesson, index) => {
-              if (index === myLessonIndex) {
-                return updatedLesson;
-              } else {
-                return lesson;
-              }
-            });
-            updateUserLessonById(userId, updatedUserLessons);
-            return updatedLesson;
-          } else {
-            throw new Error("Lesson not found");
-          }
-        }
-
-        
-        // return User.findByIdAndUpdate(
-        //     userId, 
-        //     { $set: { "mylessons.$[elem]": updatedData } },
-        //     { 
-        //       new: false,
-        //       arrayFilters: [{ "elem._id": lessonId }]
-        //     }
-        //   );
-        // };
+        return User.findOneAndUpdate(
+            { _id: userId, "mylessons._id": lessonId },
+            { $set: { "mylessons.$": updatedData } },
+            { new: true }
+          );
+        };
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
