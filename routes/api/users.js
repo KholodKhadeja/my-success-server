@@ -103,6 +103,7 @@ router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
     res.json({msg:"updated lesson successfully!!"});
     console.log(updatedLesson);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Failed to update lesson' });
   }
 });
