@@ -4,6 +4,7 @@ const User= require("../../models/user.model");
 const {Lesson}=require("../../models/lesson.model");
 
 const { selectAllUsers,
+  updateUserSpecificLessonByUserId,
     createNewUser, 
     updateUserLessonById,
     updateUserById,
