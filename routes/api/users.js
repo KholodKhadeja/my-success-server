@@ -25,6 +25,7 @@ router.get("/", async(req, res)=>{
         console.log(err);
         res.status(400).json({error:err});}
 });
+
 router.get("/getuserbyid/:id", async (req, res) => {
     try {
       const validatedValue = await validateFindUserByIdSchema(req.params);
@@ -34,6 +35,7 @@ router.get("/getuserbyid/:id", async (req, res) => {
       res.status(400).json({ error: err });
     }
   });
+
 
 router.post("/", async (req, res)=>{
     try{
@@ -91,17 +93,16 @@ router.patch("/", async (req, res)=>{
     }
 });
 
-// router.patch("/addlesson/:id", async (req, res)=>{er
-//     try{
-//         const validatedValues = await validateUpdateUserSchema(req.body);
-//         const userData = await updateUserById(validatedValues.id,
-//             validatedValues.mylessons, );
-//          res.json({msg:"updated successfully!!"});
-//     }catch(err){
-//         console.log(err);
-//        res.status(400).json({err});
-//     }
-// });
+router.patch("/updateuserlesson/:id", async (req, res)=>{
+  try{
+    const lessonId = req.params.id;
+    const updatedData = req.body;
+    const updatedLesson = await updateUserSpecificLessonByUserId(req.params.lessonId, req.body);
+   res.json({msg:"updated lesson successfully!!"});
+  }catch(err){
+     res.status(400).json({err});
+  }
+});
 
 router.delete("/:id", async (req, res)=>{
     try{
