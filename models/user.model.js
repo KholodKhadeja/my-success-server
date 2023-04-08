@@ -67,7 +67,7 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
           .catch(error => {
             console.error('Failed to update user:', error);
           });
-        }
+        };
         // const userLessons = getUserById(userId).mylessons;
         // return userLessons.findOneAndUpdate(lessonId,updatedData, { new: true })};
         // return User.findOneAndUpdate(
@@ -77,15 +77,15 @@ const updateUserById=(id,firstname,lastname,email,password,role,studentclass,spe
         //         arrayFilters: [{ "elem._id": lessonId }]
         //      }
         //   );
-        return User.findByIdAndUpdate(
-            userId, 
-            { $set: { "mylessons.$[elem]": updatedData } },
-            { 
-              new: false,
-              arrayFilters: [{ "elem._id": lessonId }]
-            }
-          );
-        };
+        // return User.findByIdAndUpdate(
+        //     userId, 
+        //     { $set: { "mylessons.$[elem]": updatedData } },
+        //     { 
+        //       new: false,
+        //       arrayFilters: [{ "elem._id": lessonId }]
+        //     }
+        //   );
+        // };
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
