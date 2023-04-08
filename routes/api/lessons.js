@@ -86,6 +86,7 @@ router.patch("/:userId/lessons/:lessonId", authMiddleware ,async (req, res) => {
     //     validatedValues.students);
     res.status(201).json({ msg: "put proccessed" });
   } catch (err) {
+    console.log(err);
     res.status(400).json({ error: err });
   }
   });
