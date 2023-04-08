@@ -38,12 +38,11 @@ const createNewUser = (userData) => {
     return user.save();
 }
 
-const updateUserById=(id,firstname,lastname,email,password,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
+const updateUserById=(id,firstname,lastname,email,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
         return User.findByIdAndUpdate(id,{
             firstname,
             lastname,
             email,
-            password,
             role,
             studentclass,
             specialization,
