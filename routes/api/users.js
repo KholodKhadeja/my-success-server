@@ -69,6 +69,28 @@ router.post('/:userId/mylessons', async (req, res) => {
     }
   });
 
+  // should clone the exised lesson item and add it to the student array fav lessons
+  // router.post('/:userId/favlessons', async (req, res) => {
+  //   const { userId } = req.params;
+  //   let lesson = req.body;
+  //   const theUser = await getUserById(userId);
+  //   try { 
+  //   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+  //    lesson = new Lesson({ subject:lesson.subject , 
+  //       topic: lesson.topic,
+  //        learningLevel:lesson.learningLevel ,
+  //        hour:lesson.hour,
+  //        date:lesson.date, 
+  //        students: [],
+  //        teacherId: lesson.teacherId,
+  //       });
+  //     lesson = await lesson.save();
+  //     const updatedUser= await updateUserLessonById(userId,{ $push: { favlessons: lesson} } );
+  //     res.status(201).json("lesson added to mylessons");
+  //   } catch (err) {
+  //     res.status(500).json(err);
+  //   }
+  // });
 
 router.patch("/", async (req, res)=>{
     try{

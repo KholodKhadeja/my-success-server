@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const learningLevelEnum = require("../enum/LearningLevel.Enum");
+const {User} = require("../models/user.model");
 
 
 const LessonSchema = new Schema({
@@ -36,6 +37,27 @@ const updateLessonById=(id,subject,topic,learningLevel,hour,date,students)=>{
     subject,topic,learningLevel,hour,date,students
  })}
 
+ const updateUserSpecificLessonByUserId = async (userId, lessonId, updatedData) => {
+    try {
+      const filter = { _id: userId, "mylessons._id": lessonId };
+      const update = { $set: { "mylessons.$": updatedData } };
+      const options = { new: true };
+      const user = await User.findOne(filter);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      const updatedLesson = user.mylessons.id(lessonId);
+      if (!updatedLesson) {
+        throw new Error('Lesson not found');
+      }
+      Object.assign(updatedLesson, updatedData);
+      await user.save();
+      return updatedLesson;
+    } catch (error) {
+      throw new Error(`Failed to update lesson: ${error.message}`);
+    }
+  };
+
 const deleteLessonById = (id)=>{
     return Lesson.findByIdAndDelete(id);
 }
@@ -46,5 +68,5 @@ module.exports={
     createNewLesson,
     updateLessonById,
     deleteLessonById,
-getLessonById
+getLessonById,updateUserSpecificLessonByUserId
     };
