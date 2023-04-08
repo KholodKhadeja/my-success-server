@@ -52,7 +52,6 @@ router.patch("/", authMiddleware ,async (req, res) => {
     try{
         const validatedValues = await validateUpdateLessonSchema(req.body);
         const lessonId = await getLessonById(validatedValues.id);
-        
         if (!lessonId) throw "lesson not exists";
         if (lessonId.teacherId.valueOf() === req.userData.id || req.userData.allowAccess) {
           await updateLessonById(validatedValues.id,

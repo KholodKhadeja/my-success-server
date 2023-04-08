@@ -44,6 +44,7 @@ router.post("/", async (req, res)=>{
        const newUser = await createNewUser(validatedValue);
        res.status(201).json({msg:"Added successfully!!"}); 
     }catch(err){
+            console.log(err);
             res.status(400).json({err});
     }
 });
