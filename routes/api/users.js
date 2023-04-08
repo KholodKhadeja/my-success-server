@@ -137,6 +137,7 @@ router.delete("/:id", async (req, res)=>{
         const userData = await deleteUserById(validatedValue.id);
         res.json({msg:"deleted successfully!!"});
     }catch(err){
+      console.log(err);
         res.status(400).json({err});
     }
 });
