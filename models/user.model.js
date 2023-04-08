@@ -50,7 +50,8 @@ const updateUserById=(id,firstname,lastname,email,role,studentclass,specializati
             favlessons,
             profileImg,
             userstatus
-        })}
+        },{ new: true }
+        )}
 
  const updateUserLessonById=(id,mylessons)=>{
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
