@@ -70,26 +70,26 @@ router.patch("/", authMiddleware ,async (req, res) => {
       }
 });
 
-router.patch("/:userId/lessons/:lessonId", authMiddleware ,async (req, res) => {
-  try{
-    const userId = req.params.userId;
-    const lessonId= req.params.lessonId;
-    const updateContent = req.body;
-    const updatedLesson = await updateUserSpecificLessonByUserId(userId, lessonId, updateContent);
-    // if (!lessonId) throw "lesson not exists";
-    // if (lessonId.teacherId.valueOf() === req.userData.id || req.userData.allowAccess) {
-    //   await updateLessonById(validatedValues.id,
-    //     validatedValues.subject,validatedValues.topic,
-    //     validatedValues.learningLevel,
-    //     validatedValues.hour,
-    //     validatedValues.date,
-    //     validatedValues.students);
-    res.status(201).json({ msg: "put proccessed" });
-  } catch (err) {
-    console.log(err);
-    res.status(400).json({ error: err });
-  }
-  });
+// router.patch("/:userId/lessons/:lessonId", authMiddleware ,async (req, res) => {
+//   try{
+//     const userId = req.params.userId;
+//     const lessonId= req.params.lessonId;
+//     const updateContent = req.body;
+//     const updatedLesson = await updateUserSpecificLessonByUserId(userId, lessonId, updateContent);
+//     // if (!lessonId) throw "lesson not exists";
+//     // if (lessonId.teacherId.valueOf() === req.userData.id || req.userData.allowAccess) {
+//     //   await updateLessonById(validatedValues.id,
+//     //     validatedValues.subject,validatedValues.topic,
+//     //     validatedValues.learningLevel,
+//     //     validatedValues.hour,
+//     //     validatedValues.date,
+//     //     validatedValues.students);
+//     res.status(201).json({ msg: "put proccessed" });
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json({ error: err });
+//   }
+//   });
 
 router.delete("/:id", authMiddleware ,async (req, res) => {
     try{
