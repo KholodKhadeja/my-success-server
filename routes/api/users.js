@@ -110,7 +110,6 @@ router.patch("/", async (req, res)=>{
               validatedValues.userstatus
             );
          res.json({msg:"updated successfully!!"});
-
     }catch(err){
         console.log(err);
        res.status(400).json({err});
