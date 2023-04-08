@@ -93,11 +93,10 @@ router.post('/:userId/mylessons', async (req, res) => {
   //   }
   // });
 
-router.patch("/:id", async (req, res)=>{
+router.patch("/", async (req, res)=>{
     try{
-      const id= req.params.id;
         const validatedValues = await validateUpdateUserSchema(req.body);
-        const userData = await updateUserById(id,
+        const userData = await updateUserById(validatedValues.id,
             validatedValues.firstname,
             validatedValues.  lastname, 
             validatedValues.email, 

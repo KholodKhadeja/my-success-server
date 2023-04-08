@@ -20,7 +20,7 @@ const validateNewUserSchema = (userInput)=>{
     return validate(newUserSchema, userInput);
 };
 const updateUserSchema = joi.object({
-    id: joi.string().length(24).hex().required(),
+    id: joi.string().length(24).hex().required().trim(),
     firstname: joi.string().min(2).max(100).required().trim(),
     lastname: joi.string().min(2).max(100).required().trim(),
     email:joi.string().email().required().trim(),
