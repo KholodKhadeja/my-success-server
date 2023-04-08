@@ -68,5 +68,6 @@ module.exports={
     createNewLesson,
     updateLessonById,
     deleteLessonById,
-getLessonById,updateUserSpecificLessonByUserId
+getLessonById,
+// updateUserSpecificLessonByUserId
     };
