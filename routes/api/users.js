@@ -161,10 +161,12 @@ router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
   try { 
     const theUser = await getUserById(userId);
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    // const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
+    const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
     // const deletedLesson = await deleteLessonById(lessonId);
     console.log(theUser);
-    theUser.mylessons=theUser.mylessons.filter(el => el != lessonId);
+    theUser.mylessons=theUser.mylessons.filter(el => { 
+      console.log( el != lessonId);
+      return el != lessonId});
     console.log("after", theUser);
     await theUser.save();
     res.status(201).json("lesson removed to mylessons");
