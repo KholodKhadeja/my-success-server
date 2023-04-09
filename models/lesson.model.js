@@ -31,17 +31,17 @@ const getLessonById = (id)=>{
 const getLessonByteacherId = (id)=>{
     return Lesson.find({teacherId:id});
 }
-const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherId) => {
-    const lesson = new Lesson({subject,topic,learningLevel,hour,date,students,teacherId});
+const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherId, zoomLink) => {
+    const lesson = new Lesson({subject,topic,learningLevel,hour,date,students,teacherId,  zoomLink});
     return lesson.save();
  }
 
 const addStudentToStudentArrayOfaLesson=(id,students)=>{
     return Lesson.findByIdAndUpdate(id,students, { new: true })};
 
-const updateLessonById=(id,subject,topic,learningLevel,hour,date,students)=>{
+const updateLessonById=(id,subject,topic,learningLevel,hour,date,students, zoomLink)=>{
    return Lesson.findByIdAndUpdate(id,{
-    subject,topic,learningLevel,hour,date,students
+    subject,topic,learningLevel,hour,date,students, zoomLink
  })}
 
 //  const updateUserSpecificLessonByUserId = async (userId, lessonId, updatedData) => {

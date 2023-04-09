@@ -39,6 +39,7 @@ router.post("/", authMiddleware ,async (req, res) => {
       validatedValue.hour,
       validatedValue.date,
       validatedValue.students,
+      validatedValue.zoomLink,
       req.userData.id);
 
          
@@ -59,7 +60,8 @@ router.patch("/", authMiddleware ,async (req, res) => {
             validatedValues.learningLevel,
             validatedValues.hour,
             validatedValues.date,
-            validatedValues.students);
+            validatedValues.students,
+            validatedValue.zoomLink,);
         } else {
           throw "operation invalid aka unauthorized";
         }
