@@ -156,14 +156,15 @@ router.delete("/:id", async (req, res)=>{
 });
 
 /*deleting the lesson premenantly for the user and from the lessons array itself*/
-router.delete('/:userId/mylessons/:lessonId', async (req, res) => {
+router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
   const { userId, lessonId } = req.params;
-  let lesson = req.body;
-  const theUser = await getUserById(userId);
   try { 
+    const theUser = await getUserById(userId);
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
-    const deletedLesson = await deleteLessonById(lessonId);
+    // const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
+    // const deletedLesson = await deleteLessonById(lessonId);
+    theUser.mylessons=theUser.mylessons.filter(el => el != lessonId);
+    await theUser.save();
     res.status(201).json("lesson removed to mylessons");
   } catch (err) {
     res.status(500).json(err);
