@@ -10,8 +10,8 @@ const userSchema = new Schema({
     role:{type:String,default: roleEnum[0], enum: [...roleEnum]},
     studentclass:{type:String},
     specialization:{type:String},
-    // mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
-    mylessons: {type: Array},
+    mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    // mylessons: {type: Array},
     favlessons: {type: Array},
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
@@ -58,7 +58,7 @@ const updateUserById=(id,firstname,lastname,email,role,studentclass,specializati
         return User.findByIdAndUpdate(id,favlessons, { new: true })};
 
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
-        const filter = { _id: userId, 'mylessons._id': lessonId };
+        const filter = { teacherId:userId, 'mylessons._id': lessonId };
         const update = { $set: { "mylessons.$": updatedData} };
         const options = { new: true };
         User.findOneAndUpdate(filter, update, options)
