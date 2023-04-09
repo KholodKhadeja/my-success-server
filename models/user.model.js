@@ -12,12 +12,12 @@ const userSchema = new Schema({
     specialization:{type:String},
     mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
     // mylessons: {type: Array},
-    favlessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    favlessons:{type: Array},
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
 })
 userSchema.pre(/^find/,function(next){
-    this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
+    this.populate({path:'mylessons'});
     next()
 })
 
