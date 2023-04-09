@@ -82,7 +82,7 @@ router.post('/:userId/mylessons', async (req, res) => {
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     /*in the array of a student*/
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
-      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
+      // const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       res.status(500).json(err);
@@ -125,6 +125,7 @@ router.patch("/", async (req, res)=>{
        res.status(400).json({err});
     }
 });
+
 
 router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
   try{
@@ -170,14 +171,17 @@ router.delete('/:userId/mylessons/:lessonId', async (req, res) => {
 router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
   const { studentId, lessonId } = req.params;
   const theUser = await getUserById(studentId);
+  const theLesson = await getLessonById(lessonId);
   try { 
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser= await updateUserLessonById(studentId,{ $pull: { favlessons:lessonId} } );
+   const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $pull: { students:studentId} } );
     res.status(201).json("lesson removed from fav successfully");
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
  /*cancel registration*/
 router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
   const { studentId, lessonId } = req.params;
