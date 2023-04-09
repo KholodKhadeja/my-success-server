@@ -17,7 +17,7 @@ const userSchema = new Schema({
     userstatus:{type: Boolean, default: true,required:true}
 })
 userSchema.pre(/^find/,function(next){
-    this.populate({path:'mylessons'})
+    this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
     next()
 })
 
