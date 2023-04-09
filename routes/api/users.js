@@ -129,6 +129,7 @@ router.patch("/", async (req, res)=>{
 
 router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
   try{
+    console.log(req.params);
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
     const updatedData = req.body;
@@ -140,6 +141,9 @@ router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
     res.status(500).json({ message: 'Failed to update lesson' });
   }
 });
+
+
+
 
 router.delete("/:id", async (req, res)=>{
     try{
