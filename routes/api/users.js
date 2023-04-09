@@ -111,7 +111,7 @@ router.patch("/", async (req, res)=>{
           req.body
             );
             console.log(req.body);
-         res.json({msg:"updated successfully!!"});
+         res.json({userData});
     }catch(err){
         console.log(err);
        res.status(400).json({err});
