@@ -54,6 +54,9 @@ const updateUserById=(id,firstname,lastname,email,role,studentclass,specializati
  const updateUserLessonById=(id,mylessons)=>{
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
+    const updateUserFavLessonById=(id,favlessons)=>{
+        return User.findByIdAndUpdate(id,favlessons, { new: true })};
+
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
         const filter = { _id: userId, 'mylessons._id': lessonId };
         const update = { $set: { "mylessons.$": updatedData} };
@@ -100,5 +103,6 @@ module.exports={User,
     getUserById,
     getUserByEmail,
     updatePasswordById,
-    updateUserSpecificLessonByUserId
+    updateUserSpecificLessonByUserId,
+    updateUserFavLessonById
     };

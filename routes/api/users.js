@@ -9,6 +9,7 @@ const { selectAllUsers,
     updateUserLessonById,
     updateUserById,
     deleteUserById,
+    updateUserFavLessonById,
     getUserById} = require("../../models/user.model");
 const {
     validateDeleteUserSchema, 
@@ -64,6 +65,32 @@ router.post('/:userId/mylessons', async (req, res) => {
       lesson = await lesson.save();
       const updatedUser= await updateUserLessonById(userId,{ $push: { mylessons: lesson} } );
       res.status(201).json("lesson added to mylessons");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  router.post('/:studentId/mylessons/:lessonId', async (req, res) => {
+    const { studentId } = req.params;
+    const { lessonId } = req.params;
+    const theUser = await getUserById(studentId);
+    try { 
+    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+      const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
+      res.status(201).json("lesson added to student successfully");
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+
+  router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
+    const { studentId } = req.params;
+    const { lessonId } = req.params;
+    const theUser = await getUserById(studentId);
+    try { 
+    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+      const updatedUser= await updateUserLessonById(studentId,{ $push: { favlessons:lessonId} } );
+      res.status(201).json("lesson added to student successfully");
     } catch (err) {
       res.status(500).json(err);
     }
