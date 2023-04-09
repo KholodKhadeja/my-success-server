@@ -24,6 +24,7 @@ router.get("/getbyid/:id", async (req, res) => {
     const lessonData = await getLessonById(req.params.id);
     res.json(lessonData);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ error: err });
   }
 });
