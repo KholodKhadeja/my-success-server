@@ -82,7 +82,7 @@ router.post('/:userId/mylessons', async (req, res) => {
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     /*in the array of a student*/
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
-      // const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
+      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       res.status(500).json(err);
