@@ -157,7 +157,7 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
   try { 
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser= await updateUserLessonById(studentId,{ $pull: { favlessons:lessonId} } );
-    res.status(201).json("lesson added to student fav successfully");
+    res.status(201).json("lesson removed from fav successfully");
   } catch (err) {
     res.status(500).json(err);
   }
