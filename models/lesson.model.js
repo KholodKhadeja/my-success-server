@@ -11,10 +11,14 @@ learningLevel:{type:String,required:true},
 hour:{type: Date,required: true,get: (v) => {return new Date(v).toISOString().slice(11, 16); },
 set: (v) => {  const d = new Date(); const [hours, minutes] = v.split(":"); d.setUTCHours(hours, minutes, 0, 0); return d;}},
 date:{ type: Date,required:true, min: new Date().toISOString().slice(0, 10),},
-students:{type: Array},
+students:[{type: Schema.Types.ObjectId,ref: "students"}],
 teacherId: {type:String},
 zoomLink:{ type: String, match: /^https?:\/\//i},
 });
+userSchema.pre(/^find/,function(next){
+    this.populate({path:'mylessons'})
+    next()
+})
 
 const Lesson= mongoose.model("lessons", LessonSchema);
 

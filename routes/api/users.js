@@ -64,7 +64,7 @@ router.post('/:userId/mylessons', async (req, res) => {
          students: [],
          teacherId: {_id:userId}});
       lesson = await lesson.save();
-      const updatedUser= await updateUserLessonById(userId,{ $push: { mylessons: lesson} } );
+      // const updatedUser= await updateUserLessonById(userId,{ $push: { mylessons: lesson} } );
       res.status(201).json("lesson added to mylessons");
     } catch (err) {
       res.status(500).json(err);
@@ -105,12 +105,10 @@ router.post('/:userId/mylessons', async (req, res) => {
 
 router.patch("/", async (req, res)=>{
     try{
-
-        // const validatedValues = await validateUpdateUserSchema(req.body);
+        const validatedValues = await validateUpdateUserSchema(req.body);
         const userData = await updateUserById(req.body._id,
           req.body
             );
-            console.log(req.body);
          res.json({userData});
     }catch(err){
         console.log(err);
