@@ -39,20 +39,8 @@ const createNewUser = (userData) => {
     return user.save();
 }
 
-const updateUserById=(id,firstname,lastname,email,role,studentclass,specialization,mylessons,favlessons,profileImg,userstatus)=>{
-        return User.findByIdAndUpdate(id,{
-            firstname,
-            lastname,
-            email,
-            role,
-            studentclass,
-            specialization,
-            mylessons,
-            favlessons,
-            profileImg,
-            userstatus
-        },{ new: true }
-        )}
+const updateUserById=(id, newData)=>{
+        return User.findByIdAndUpdate(id, newData,{ new: true } )};
 
  const updateUserLessonById=(id,mylessons)=>{
     return User.findByIdAndUpdate(id,mylessons, { new: true })};
