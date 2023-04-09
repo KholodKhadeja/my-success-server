@@ -110,6 +110,7 @@ router.patch("/", async (req, res)=>{
         const userData = await updateUserById(req.body.id,
           req.body
             );
+            console.log(req.body);
          res.json({msg:"updated successfully!!"});
     }catch(err){
         console.log(err);
