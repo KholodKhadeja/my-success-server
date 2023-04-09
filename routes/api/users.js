@@ -3,7 +3,7 @@ const router = express.Router();
 const User= require("../../models/user.model");
 const {Lesson}=require("../../models/lesson.model");
 
-const { addStudentToStudentArrayOfaLesson, getLessonById } = require("../../models/lesson.model");
+const { addStudentToStudentArrayOfaLesson, getLessonById, deleteLessonById } = require("../../models/lesson.model");
 const { selectAllUsers,
   updateUserSpecificLessonByUserId,
     createNewUser, 
@@ -149,14 +149,42 @@ router.delete("/:id", async (req, res)=>{
         res.status(400).json({err});
     }
 });
+
+/*deleting the lesson premenantly for the user and from the lessons array itself*/
+router.delete('/:userId/mylessons/:lessonId', async (req, res) => {
+  const { userId, lessonId } = req.params;
+  let lesson = req.body;
+  const theUser = await getUserById(userId);
+  try { 
+  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+    const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
+    const deletedLesson = await deleteLessonById(lessonId);
+    res.status(201).json("lesson removed to mylessons");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
  /*removing lesson from myfav array for a student*/
 router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
-  const { studentId } = req.params;
-  const { lessonId } = req.params;
+  const { studentId, lessonId } = req.params;
   const theUser = await getUserById(studentId);
   try { 
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser= await updateUserLessonById(studentId,{ $pull: { favlessons:lessonId} } );
+    res.status(201).json("lesson removed from fav successfully");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+ /*cancel registration*/
+router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
+  const { studentId, lessonId } = req.params;
+  const theUser = await getUserById(studentId);
+  try { 
+  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+    const updatedUser= await updateUserLessonById(studentId,{ $pull: { mylessons:lessonId} } );
     res.status(201).json("lesson removed from fav successfully");
   } catch (err) {
     res.status(500).json(err);
