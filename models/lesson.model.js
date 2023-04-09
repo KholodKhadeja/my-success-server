@@ -16,7 +16,7 @@ teacherId: {type:String},
 zoomLink:{ type: String, match: /^https?:\/\//i},
 });
 LessonSchema.pre(/^find/,function(next){
-    this.populate({path:'mylessons'})
+    this.populate({path:'students'})
     next()
 })
 
