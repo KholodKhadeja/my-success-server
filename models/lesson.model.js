@@ -26,7 +26,7 @@ const selectAllLessons = () =>{
    return Lesson.find({});
 };
 const getLessonById = (id)=>{
-    return Lesson.findById(id);
+    return Lesson.findById({_id:id});
 }
 const getLessonByteacherId = (id)=>{
     return Lesson.find({teacherId:id});
