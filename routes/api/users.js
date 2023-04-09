@@ -165,8 +165,8 @@ router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
     // const deletedLesson = await deleteLessonById(lessonId);
     console.log(theUser);
     theUser.mylessons=theUser.mylessons.filter(el => { 
-      console.log( el != lessonId);
-      return el != lessonId});
+      console.log( el._id != lessonId);
+      return el._id != lessonId});
     console.log("after", theUser);
     await theUser.save();
     res.status(201).json("lesson removed to mylessons");
