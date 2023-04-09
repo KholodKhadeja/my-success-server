@@ -37,7 +37,7 @@ const deleteLessonSchema = joi.object({
   };
 
   const findLessonByIdSchema = joi.object({
-    _id:joi.string().length(24).hex().required().trim(),
+    id:joi.string().length(24).hex().required().trim(),
     });
     const validateFindLessonByIdSchema = (lessonInfo)=>{
         return validate(findLessonByIdSchema, lessonInfo);
