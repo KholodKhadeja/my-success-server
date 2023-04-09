@@ -23,7 +23,6 @@ router.get("/", async(req, res)=>{
         const data = await selectAllUsers();
         res.json(data); }
     catch(err){
-        console.log(err);
         res.status(400).json({error:err});}
 });
 
@@ -126,7 +125,6 @@ router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
     res.json({msg:"updated lesson successfully!!"});
     console.log(updatedLesson);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: 'Failed to update lesson' });
   }
 });
@@ -137,7 +135,6 @@ router.delete("/:id", async (req, res)=>{
         const userData = await deleteUserById(validatedValue.id);
         res.json({msg:"deleted successfully!!"});
     }catch(err){
-      console.log(err);
         res.status(400).json({err});
     }
 });

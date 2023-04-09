@@ -12,9 +12,7 @@ const userSchema = new Schema({
     specialization:{type:String},
     // mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
     mylessons: {type: Array},
-      favlessons: [{
-        type: Schema.Types.ObjectId,
-        ref: "lessons" }],
+    favlessons: {type: Array},
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
 })
