@@ -15,7 +15,7 @@ students:[{type: Schema.Types.ObjectId,ref: "students"}],
 teacherId: {type:String},
 zoomLink:{ type: String, match: /^https?:\/\//i},
 });
-userSchema.pre(/^find/,function(next){
+LessonSchema.pre(/^find/,function(next){
     this.populate({path:'mylessons'})
     next()
 })
