@@ -3,6 +3,7 @@ const router = express.Router();
 const User= require("../../models/user.model");
 const {Lesson}=require("../../models/lesson.model");
 
+const { addStudentToStudentArrayOfaLesson, getLessonById } = require("../../models/lesson.model");
 const { selectAllUsers,
   updateUserSpecificLessonByUserId,
     createNewUser, 
@@ -70,13 +71,18 @@ router.post('/:userId/mylessons', async (req, res) => {
     }
   });
 
+  /*assign lesson to student*/
+  
   router.post('/:studentId/mylessons/:lessonId', async (req, res) => {
     const { studentId } = req.params;
     const { lessonId } = req.params;
     const theUser = await getUserById(studentId);
+    const theLesson = await getLessonById(lessonId);
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+    /*in the array of a student*/
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
+      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       res.status(500).json(err);
@@ -90,34 +96,12 @@ router.post('/:userId/mylessons', async (req, res) => {
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
       const updatedUser= await updateUserLessonById(studentId,{ $push: { favlessons:lessonId} } );
-      res.status(201).json("lesson added to student successfully");
+      res.status(201).json("lesson added to student fav successfully");
     } catch (err) {
       res.status(500).json(err);
     }
   });
 
-  // should clone the exised lesson item and add it to the student array fav lessons
-  // router.post('/:userId/favlessons', async (req, res) => {
-  //   const { userId } = req.params;
-  //   let lesson = req.body;
-  //   const theUser = await getUserById(userId);
-  //   try { 
-  //   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-  //    lesson = new Lesson({ subject:lesson.subject , 
-  //       topic: lesson.topic,
-  //        learningLevel:lesson.learningLevel ,
-  //        hour:lesson.hour,
-  //        date:lesson.date, 
-  //        students: [],
-  //        teacherId: lesson.teacherId,
-  //       });
-  //     lesson = await lesson.save();
-  //     const updatedUser= await updateUserLessonById(userId,{ $push: { favlessons: lesson} } );
-  //     res.status(201).json("lesson added to mylessons");
-  //   } catch (err) {
-  //     res.status(500).json(err);
-  //   }
-  // });
 
 router.patch("/", async (req, res)=>{
     try{
@@ -164,6 +148,19 @@ router.delete("/:id", async (req, res)=>{
     }catch(err){
         res.status(400).json({err});
     }
+});
+ /*removing lesson from myfav array for a student*/
+router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
+  const { studentId } = req.params;
+  const { lessonId } = req.params;
+  const theUser = await getUserById(studentId);
+  try { 
+  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+    const updatedUser= await updateUserLessonById(studentId,{ $pull: { favlessons:lessonId} } );
+    res.status(201).json("lesson added to student fav successfully");
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

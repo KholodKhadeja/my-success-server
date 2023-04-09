@@ -30,7 +30,10 @@ const getLessonByteacherId = (id)=>{
 const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherId) => {
     const lesson = new Lesson({subject,topic,learningLevel,hour,date,students,teacherId});
     return lesson.save();
-p }
+ }
+
+const addStudentToStudentArrayOfaLesson=(id,students)=>{
+    return Lesson.findByIdAndUpdate(id,students, { new: true })};
 
 const updateLessonById=(id,subject,topic,learningLevel,hour,date,students)=>{
    return Lesson.findByIdAndUpdate(id,{
@@ -69,5 +72,6 @@ module.exports={
     updateLessonById,
     deleteLessonById,
 getLessonById,
+addStudentToStudentArrayOfaLesson,
 // updateUserSpecificLessonByUserId
     };
