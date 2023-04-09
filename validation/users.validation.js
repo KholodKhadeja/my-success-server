@@ -43,7 +43,7 @@ const deleteUserSchema = joi.object({
   };
 
   const findUserByIdSchema = joi.object({
-    id:joi.string().length(24).hex().required().trim(),
+    _id:joi.string().length(24).hex().required().trim(),
     });
     const validateFindUserByIdSchema = (lessonInfo)=>{
         return validate(findUserByIdSchema, lessonInfo);
