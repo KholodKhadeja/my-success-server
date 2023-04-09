@@ -107,7 +107,7 @@ router.patch("/", async (req, res)=>{
     try{
 
         // const validatedValues = await validateUpdateUserSchema(req.body);
-        const userData = await updateUserById(req.body.id,
+        const userData = await updateUserById(req.body._id,
           req.body
             );
             console.log(req.body);
