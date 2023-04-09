@@ -32,7 +32,7 @@ const getLessonByteacherId = (id)=>{
     return Lesson.find({teacherId:id});
 }
 const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherId, zoomLink) => {
-    const lesson = new Lesson({subject,topic,learningLevel,hour,date,students,teacherId,  zoomLink});
+    const lesson = new Lesson({subject,topic,learningLevel,hour,date,students,teacherId, zoomLink});
     return lesson.save();
  }
 

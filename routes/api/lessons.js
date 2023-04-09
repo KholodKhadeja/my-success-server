@@ -41,8 +41,6 @@ router.post("/", authMiddleware ,async (req, res) => {
       validatedValue.students,
       validatedValue.zoomLink,
       req.userData.id);
-
-         
     res.status(201).json({ msg: "Lesson added successfully!!" });
   } catch (err) {
     res.status(400).json({ err });
