@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
-const {Lesson } = require("../models/lesson.model");
+// const {Lesson } = require("../models/lesson.model");
 
 const userSchema = new Schema({
     email:{type:String, required:true, unique: true},
@@ -46,19 +46,20 @@ const updateUserById=(id, newData)=>{
 
 
 
-//  const updateUserLessonById=(userId,lessonId)=>{
-//     const update = { $push: { "mylessons.$": lessonId} };
-//     const options = { new: true };
-//     User.findOneAndUpdate({_id:userId}, update, options)
-//       .then(updatedUser => {
-//         console.log('Lesson added to user:', updatedUser);
-//       })
-//       .catch(error => {
-//         console.log(error);
-//         console.error('Failed to update user:', error);
-//       });
-//     };
-    const updateUserLessonById=(userId, lessonId, mylessonUpdate, studentUpdate)=>{
+ const updateUserLessonById=(userId,lessonId)=>{
+    const update = { $push: { "mylessons.$": lessonId} };
+    const options = { new: true };
+    User.findOneAndUpdate({_id:userId}, update, options)
+      .then(updatedUser => {
+        console.log('Lesson added to user:', updatedUser);
+      })
+      .catch(error => {
+        console.log(error);
+        console.error('Failed to update user:', error);
+      });
+    };
+
+    const updateUserMyLessonById=(userId, lessonId, mylessonUpdate, studentUpdate)=>{
        User.findByIdAndUpdate(userId,mylessonUpdate, { new: true }).then((res)=>{
              console.log("lessons added to my lessons");
             //  Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
@@ -121,7 +122,7 @@ const deleteUserById = (id)=>{
     };
 module.exports={User,
     selectAllUsers,
-    updateUserLessonById,
+    updateUserLessonById,updateUserMyLessonById,
     createNewUser, 
     updateUserById,
     deleteUserById,
