@@ -44,8 +44,6 @@ const createNewUser = (userData) => {
 const updateUserById=(id, newData)=>{
         return User.findByIdAndUpdate(id, newData,{ new: true } )};
 
-
-
  const updateUserLessonById=async(userId,lesson)=>{
     const updatedUser = await User.findByIdAndUpdate(userId, { $push: { mylessons: lesson._id } }, { new: true });
     return updatedUser;
