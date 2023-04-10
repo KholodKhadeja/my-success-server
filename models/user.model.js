@@ -59,13 +59,9 @@ const updateUserById=(id, newData)=>{
       });
     };
 
-    const updateUserMyLessonById=(userId, lessonId, mylessonUpdate, studentUpdate)=>{
-       User.findByIdAndUpdate(userId,mylessonUpdate, { new: true }).then((res)=>{
-             console.log("lessons added to my lessons");
+    const updateUserMyLessonById=async (userId, lessonId, mylessonUpdate, studentUpdate)=>{
+       return User.findOneAndUpdate(userId,mylessonUpdate, { new: true });
             //  Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
-       }).catch((err)=>{
-          console.log(err)
-       })
         // const filter = { _id:userId };
         // const update = { $push: { "mylessons.$": lessonId} };
         // const options = { new: true };
