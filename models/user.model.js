@@ -47,12 +47,12 @@ const updateUserById=(id, newData)=>{
     const update = { $push: { "mylessons.$": lessonId} };
     const options = { new: true };
     User.findOneAndUpdate({_id:userId}, update, options)
-      .then(updatedUser => {
-        console.log('Lesson added to user:', updatedUser);
+      .then((res) => {
+        console.log('Lesson added to user');
       })
       .catch(error => {
         console.log(error);
-        console.error('Failed to update user:', error);
+        console.error('Failed to update use:', error);
       });
     };      
     // return User.findByIdAndUpdate(id,mylessons, { new: true })};
