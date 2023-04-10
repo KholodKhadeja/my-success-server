@@ -11,8 +11,6 @@ const newUserSchema = joi.object({
     role: joi.string().valid(...roleEnum).required(),
     studentclass: joi.string().min(0).max(20).trim(),
     specialization:joi.string().min(0).max(20).trim(),
-    mylessons: joi.array().items(Lesson),
-    favlessons:joi.array().items(Lesson),
     profileImg: joi.string().uri(),
     userstatus: joi.boolean().required()
 });
@@ -24,12 +22,9 @@ const updateUserSchema = joi.object({
     firstname: joi.string().min(2).max(100).required().trim(),
     lastname: joi.string().min(2).max(100).required().trim(),
     email:joi.string().email().required().trim(),
-    // password: joi.string().regex(new RegExp("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*() ]).{6,12}$")).required(),
     role: joi.string().valid(...roleEnum).required(),
     studentclass: joi.string().min(0).max(20).trim(),
     specialization:joi.string().min(0).max(20).trim(),
-    mylessons: joi.array().items(Lesson),
-    favlessons:joi.array().items(Lesson),
     profileImg: joi.string().uri(),
     userstatus: joi.boolean().required()
 });
