@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
+const { Lesson } = require("./lesson.model");
 // const {Lesson } = require("../models/lesson.model");
 
 const userSchema = new Schema({
@@ -49,32 +50,12 @@ const updateUserById=(id, newData)=>{
     const updatedUser = await User.findByIdAndUpdate(userId, { $push: { mylessons: lesson._id } }, { new: true });
     return updatedUser;
  }
-    // const update = { $push: { "mylessons.$": lessonId} };
-    // const options = { new: true };
-    // User.findByIdAndUpdate({_id:userId}, update, options)
-    //   .then(updatedUser => {
-    //     console.log('Lesson added to user:', updatedUser);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     console.error('Failed to update user:', error);
-    //   });
-    // };
 
-    const updateUserMyLessonById=async (userId, mylessonUpdate)=>{
-       return User.findOneAndUpdate(userId,mylessonUpdate, { new: true });
-            //  Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
-        // const filter = { _id:userId };
-        // const update = { $push: { "mylessons.$": lessonId} };
-        // const options = { new: true };
-        // User.findByIdAndUpdate(filter, update, options)
-        //   .then(updatedUser => {
-        //     console.log('Updated user:', updatedUser);
-        //   })
-        //   .catch(error => {
-        //     console.error('Failed to update user:', error);
-        //   });
-        };
+const updateUserMyLessonById=async (userId,lessonId)=>{
+     const updatedUser = await User.findByIdAndUpdate(userId, { $push: { mylessons:lessonId} }, { new: true });
+     const updateLesson= await Lesson.findByIdAndUpdate(lessonId, { $push: { students:userId}});
+    return updatedUser, updateLesson;
+ };
 
 
     const updateUserFavLessonById=(id,favlessons)=>{
