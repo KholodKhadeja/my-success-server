@@ -87,7 +87,6 @@ router.post('/:userId/mylessons', async (req, res) => {
     }
   });
 
-
   router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
     const { studentId } = req.params;
     const { lessonId } = req.params;
