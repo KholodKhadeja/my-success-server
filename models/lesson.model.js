@@ -50,7 +50,7 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
 //     }
 
     const addStudentToStudentArrayOfaLesson=(userId, lessonId)=>{
-        const filter = { id:lessonId };
+        const filter = { _id:lessonId };
         const update = { $push: { "students.$": userId} };
         const options = { new: true };
         Lesson.findByIdAndUpdate(filter, update, options)

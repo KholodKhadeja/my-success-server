@@ -59,7 +59,7 @@ const updateUserById=(id, newData)=>{
 //     };
 
     const updateUserLessonById=(userId, lessonId)=>{
-        const filter = { id:userId };
+        const filter = { _id:userId };
         const update = { $push: { "mylessons.$": lessonId} };
         const options = { new: true };
         User.findByIdAndUpdate(filter, update, options)
