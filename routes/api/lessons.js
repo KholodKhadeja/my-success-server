@@ -59,7 +59,7 @@ router.patch("/", authMiddleware ,async (req, res) => {
             validatedValues.hour,
             validatedValues.date,
             validatedValues.students,
-            validatedValue.zoomLink);
+            validatedValues.zoomLink);
         } else {
           throw "operation invalid aka unauthorized";
         }
