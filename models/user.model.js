@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
+const {Lesson } = require("../models/lesson.model");
 
 const userSchema = new Schema({
     email:{type:String, required:true, unique: true},
@@ -57,9 +58,13 @@ const updateUserById=(id, newData)=>{
 //         console.error('Failed to update user:', error);
 //       });
 //     };
-
-    const updateUserLessonById=(userId, lessonUpdate)=>{
-        return User.findByIdAndUpdate(userId, lessonUpdate, { new: true })
+    const updateUserLessonById=(userId, lessonId, mylessonUpdate, studentUpdate)=>{
+       User.findByIdAndUpdate(userId,mylessonUpdate, { new: true }).then((res)=>{
+             console.log("lessons added to my lessons");
+             Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
+       }).catch((err)=>{
+          console.log(err)
+       })
         // const filter = { _id:userId };
         // const update = { $push: { "mylessons.$": lessonId} };
         // const options = { new: true };

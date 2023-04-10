@@ -74,13 +74,13 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   /*assign lesson to student*/ /*doesnt WORK*/
-  router.post('/:studentId/assignlesson/:lessonId', async (req, res) => {
+  router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-      const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} });/*هاي بتضيف الطالب عند قائمة طلاب الدرس */
-      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students: studentId} });
+       updateUserLessonById(studentId,lessonId,{ $push: { mylessons:lessonId} }, { $push: { students: studentId} });
+      /*هاي بتضيف الطالب عند قائمة طلاب الدرس */
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
