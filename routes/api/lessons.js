@@ -68,9 +68,9 @@ router.patch("/", async (req, res) => {
 });
 
 
-router.delete("/:lessonId", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const lessonId = {
-    _id: req.params.lessonId
+    id: req.params.id
   };
   const userId= req.body.userId;
   console.log(userId, lessonId);
