@@ -46,7 +46,8 @@ const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink
 
 const deleteLessonById = async(lessonId, userId)=>{
    const deletedLesson= await Lesson.findByIdAndDelete(lessonId);
-   const updatedUser = await User.findByIdAndUpdate({_id:userId}, { $pull: { mylessons:lessonId } }, { new: true });
+   console.log(userId,"userId");
+   const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { mylessons:lessonId } }, { new: true });
    return updatedUser,deletedLesson;
 }
 
