@@ -12,7 +12,6 @@ const userSchema = new Schema({
     studentclass:{type:String},
     specialization:{type:String},
     mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
-    // mylessons: {type: Array},
     favlessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
@@ -46,9 +45,8 @@ const updateUserById=(id, newData)=>{
 
 
 
- const updateUserLessonById=(userId,lessonUpdate)=>{
-    console.log("entered the update funtion");
-    return User.findByIdAndUpdate(userId,lessonUpdate, { new: true })};
+ const updateUserLessonById=(userId,lesson)=>{
+    return User.findByIdAndUpdate(userId, { $push: { mylessons: lesson._id } },{ new: true })};
 
     // const update = { $push: { "mylessons.$": lessonId} };
     // const options = { new: true };
