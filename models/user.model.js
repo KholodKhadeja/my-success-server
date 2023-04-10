@@ -61,7 +61,7 @@ const updateUserById=(id, newData)=>{
     const updateUserLessonById=(userId, lessonId, mylessonUpdate, studentUpdate)=>{
        User.findByIdAndUpdate(userId,mylessonUpdate, { new: true }).then((res)=>{
              console.log("lessons added to my lessons");
-             Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
+            //  Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
        }).catch((err)=>{
           console.log(err)
        })
