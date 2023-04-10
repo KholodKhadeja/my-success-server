@@ -46,7 +46,7 @@ const updateUserById=(id, newData)=>{
  const updateUserLessonById=(userId,lessonId)=>{
     const update = { $push: { "mylessons.$": lessonId} };
     const options = { new: true };
-    User.findOneAndUpdate(userId, update, options)
+    User.findOneAndUpdate({_id:userId}, update, options)
       .then(updatedUser => {
         console.log('Lesson added to user:', updatedUser);
       })
