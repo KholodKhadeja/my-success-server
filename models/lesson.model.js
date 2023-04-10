@@ -46,29 +46,10 @@ const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink
  return updatedLesson;
 }
 
-//  const updateUserSpecificLessonByUserId = async (userId, lessonId, updatedData) => {
-//     try {
-//       const filter = { _id: userId, "mylessons._id": lessonId };
-//       const update = { $set: { "mylessons.$": updatedData } };
-//       const options = { new: true };
-//       const user = await User.findOne(filter);
-//       if (!user) {
-//         throw new Error('User not found');
-//       }
-//       const updatedLesson = user.mylessons.id(lessonId);
-//       if (!updatedLesson) {
-//         throw new Error('Lesson not found');
-//       }
-//       Object.assign(updatedLesson, updatedData);
-//       await user.save();
-//       return updatedLesson;
-//     } catch (error) {
-//       throw new Error(`Failed to update lesson: ${error.message}`);
-//     }
-//   };
 
-const deleteLessonById = (id)=>{
-    return Lesson.findByIdAndDelete(id);
+const deleteLessonById = async(id)=>{
+   const deletedLesson= await Lesson.findByIdAndDelete(id);
+   return deletedLesson;
 }
 
 module.exports={

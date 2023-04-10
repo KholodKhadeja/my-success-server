@@ -68,7 +68,7 @@ router.patch("/", async (req, res) => {
 });
 
 
-router.delete("/:id", authMiddleware ,async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try{
         const validatedValue = await validateDeleteLessonSchema(req.params);
         const lessonData = await deleteLessonById(validatedValue.id);
