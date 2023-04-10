@@ -74,13 +74,15 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   /*assign lesson to student*/
-  router.post('/:studentId/assignlesson/:lessonId', async (req, res) => {
+  router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     const theUser = await getUserById(studentId);
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
-      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
+      console.log(updateUserById);
+      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId}});
+console.log(updatedLesson);
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
@@ -117,7 +119,7 @@ router.patch("/", async (req, res)=>{
 });
 
 
-router.post("/:userId/lupdatelesson/:lessonId", async (req, res)=>{
+router.patch("/:userId/lupdatelesson/:lessonId", async (req, res)=>{
   try{
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
@@ -150,6 +152,7 @@ router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
     // const deletedLesson = await deleteLessonById(lessonId);
     theUser.mylessons=theUser.mylessons.filter(el => { 
       return el._id != lessonId});
+
     await theUser.save();
     res.status(201).json("lesson removed to mylessons");
   } catch (err) {
