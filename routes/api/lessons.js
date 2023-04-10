@@ -75,7 +75,7 @@ router.delete("/:id", async (req, res) => {
   const userId= req.body.userId;
   console.log(userId, lessonId);
     try{
-        const validatedValue = await validateDeleteLessonSchema(lessonId);
+        const validatedValue = await validateDeleteLessonSchema(lessonId._id);
         const lessonData = await deleteLessonById(validatedValue, userId);
         res.json({msg:"Lesson deleted successfully!!"});
     }catch(err){
