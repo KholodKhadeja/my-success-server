@@ -40,8 +40,8 @@ const addStudentToStudentArrayOfaLesson=(lessonId,studentId)=>{
     const update = { $push: { "student.$":studentId} };
     const options = { new: true };
     User.findOneAndUpdate({_id:lessonId}, update, options)
-      .then(updatedLesson => {
-        console.log('User added to student list:', updatedLesson);
+      .then((res) => {
+        console.log('User added to student list');
       })
       .catch(error => {
         console.log(error);
