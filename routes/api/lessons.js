@@ -58,7 +58,8 @@ router.patch("/", async (req, res) => {
             validatedValues.hour,
             validatedValues.date,
             validatedValues.students,
-            validatedValues.zoomLink);
+            validatedValues.zoomLink
+            );
         res.status(201).json({ msg: "put proccessed" });
       } catch (err) {
         console.log(err);

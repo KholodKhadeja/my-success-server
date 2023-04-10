@@ -63,6 +63,7 @@ router.post('/:userId/mylessons', async (req, res) => {
          hour:lesson.hour,
          date:lesson.date, 
          students: [],
+         zoomLink:lesson.zoomLink,
          teacherId: {_id:userId}});
       lesson = await lesson.save();
       const updatedUser = await updateUserLessonById(userId, lesson);
