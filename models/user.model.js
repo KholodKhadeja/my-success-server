@@ -45,9 +45,10 @@ const updateUserById=(id, newData)=>{
 
 
 
- const updateUserLessonById=(userId,lesson)=>{
-    return User.findByIdAndUpdate(userId, { $push: { mylessons: lesson._id } },{ new: true })};
-
+ const updateUserLessonById=async(userId,lesson)=>{
+    const updatedUser = await User.findByIdAndUpdate(userId, { $push: { mylessons: lesson._id } }, { new: true });
+    return updatedUser;
+ }
     // const update = { $push: { "mylessons.$": lessonId} };
     // const options = { new: true };
     // User.findByIdAndUpdate({_id:userId}, update, options)
