@@ -73,7 +73,7 @@ router.post('/:userId/mylessons', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  /*assign lesson to student*/ /*doesnt WORK*/
+  /*assign lesson to student*/ 
   router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
@@ -100,14 +100,11 @@ router.post('/:userId/mylessons', async (req, res) => {
       res.status(500).json(err);
     }
   });
-
-
+/*update user details*/
 router.patch("/", async (req, res)=>{
     try{
         const validatedValues = await validateUpdateUserSchema(req.body);
-        const userData = await updateUserById(req.body._id,
-          req.body
-            );
+        const userData = await updateUserById(req.body._id,req.body);
          res.json({userData});
     }catch(err){
         console.log(err);
