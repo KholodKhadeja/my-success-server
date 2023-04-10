@@ -47,7 +47,7 @@ router.post("/", authMiddleware ,async (req, res) => {
   }
 });
 
-router.patch("/", authMiddleware ,async (req, res) => {
+router.patch("/", async (req, res) => {
     try{
         const validatedValues = await validateUpdateLessonSchema(req.body);
         const lessonId = await getLessonById(validatedValues.id);
