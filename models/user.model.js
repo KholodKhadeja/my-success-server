@@ -59,7 +59,7 @@ const updateUserById=(id, newData)=>{
       });
     };
 
-    const updateUserMyLessonById=async (userId, lessonId, mylessonUpdate, studentUpdate)=>{
+    const updateUserMyLessonById=async (userId, mylessonUpdate)=>{
        return User.findOneAndUpdate(userId,mylessonUpdate, { new: true });
             //  Lesson.findByIdAndUpdate(lessonId,studentUpdate, { new: true })
         // const filter = { _id:userId };
