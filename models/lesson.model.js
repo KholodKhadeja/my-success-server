@@ -35,7 +35,6 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
     return lesson.save();
  }
 
-
 const addStudentToStudentArrayOfaLesson=(lessonId, userUpdate)=>{
     return Lesson.findByIdAndUpdate(lessonId,userUpdate, { new: true })
 };
@@ -45,11 +44,8 @@ const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink
  return updatedLesson;
 }
 
-
 const deleteLessonById = async(lessonId, userId)=>{
    const deletedLesson= await Lesson.findByIdAndDelete(lessonId);
-   const user=getUserById(userId);
-   console.log(user);
    const updatedUser = await User.findByIdAndUpdate({_id:userId}, { $pull: { mylessons:lessonId } }, { new: true });
    return updatedUser,deletedLesson;
 }
