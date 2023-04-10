@@ -43,19 +43,34 @@ const createNewUser = (userData) => {
 const updateUserById=(id, newData)=>{
         return User.findByIdAndUpdate(id, newData,{ new: true } )};
 
- const updateUserLessonById=(userId,lessonId)=>{
-    const update = { $push: { "mylessons.$": lessonId} };
-    const options = { new: true };
-    User.findOneAndUpdate({_id:userId}, update, options)
-      .then(updatedUser => {
-        console.log('Lesson added to user:', updatedUser);
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Failed to update user:', error);
-      });
-    };
-    // return User.findByIdAndUpdate(id,mylessons, { new: true })};
+
+
+//  const updateUserLessonById=(userId,lessonId)=>{
+//     const update = { $push: { "mylessons.$": lessonId} };
+//     const options = { new: true };
+//     User.findOneAndUpdate({_id:userId}, update, options)
+//       .then(updatedUser => {
+//         console.log('Lesson added to user:', updatedUser);
+//       })
+//       .catch(error => {
+//         console.log(error);
+//         console.error('Failed to update user:', error);
+//       });
+//     };
+
+    const updateUserLessonById=(userId, lessonId)=>{
+        const filter = { _id:userId };
+        const update = { $push: { "mylessons.$": lessonId} };
+        const options = { new: true };
+        User.findOneAndUpdate(filter, update, options)
+          .then(updatedUser => {
+            console.log('Updated user:', updatedUser);
+          })
+          .catch(error => {
+            console.error('Failed to update user:', error);
+          });
+        };
+
 
     const updateUserFavLessonById=(id,favlessons)=>{
         return User.findByIdAndUpdate(id,favlessons, { new: true })};

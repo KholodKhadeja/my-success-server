@@ -36,18 +36,32 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
     return lesson.save();
  }
 
-const addStudentToStudentArrayOfaLesson=(lessonId,studentId)=>{
-    const update = { $push: { "student.$":studentId} };
-    const options = { new: true };
-    User.findOneAndUpdate({_id:lessonId}, update, options)
-      .then((res) => {
-        console.log('User added to student list');
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Failed to update students list:', error);
-      });
-    }
+// const addStudentToStudentArrayOfaLesson=(lessonId,studentId)=>{
+//     const update = { $push: { "student.$":studentId} };
+//     const options = { new: true };
+//     User.findOneAndUpdate({_id:lessonId}, update, options)
+//       .then((res) => {
+//         console.log('User added to student list');
+//       })
+//       .catch(error => {
+//         console.log(error);
+//         console.error('Failed to update students list:', error);
+//       });
+//     }
+
+    const addStudentToStudentArrayOfaLesson=(userId, lessonId)=>{
+        const filter = { _id:lessonId };
+        const update = { $push: { "students.$": userId} };
+        const options = { new: true };
+        Lesson.findOneAndUpdate(filter, update, options)
+          .then(updatedUser => {
+            console.log('Updated lesson:', updatedUser);
+          })
+          .catch(error => {
+            console.error('Failed to update lesson:', error);
+          });
+        };
+
 
 const updateLessonById=(id,subject,topic,learningLevel,hour,date,students, zoomLink)=>{
    return Lesson.findByIdAndUpdate(id,{
