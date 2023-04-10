@@ -52,7 +52,6 @@ router.patch("/", async (req, res) => {
         const validatedValues = await validateUpdateLessonSchema(req.body);
         const lessonId = await getLessonById(validatedValues.id);
         if (!lessonId) throw "lesson not exists";
-        if (lessonId.teacherId === req.userData._id || req.userData.allowAccess) {
           await updateLessonById(validatedValues.id,
             validatedValues.subject,validatedValues.topic,
             validatedValues.learningLevel,
@@ -60,9 +59,6 @@ router.patch("/", async (req, res) => {
             validatedValues.date,
             validatedValues.students,
             validatedValues.zoomLink);
-        } else {
-          throw "operation invalid aka unauthorized";
-        }
         res.status(201).json({ msg: "put proccessed" });
       } catch (err) {
         console.log(err);
