@@ -68,15 +68,17 @@ router.patch("/", async (req, res) => {
 });
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:lessonId", async (req, res) => {
+  const lessonId=req.params.lessonId;
+  const userId= req.params.userId;
     try{
-        const validatedValue = await validateDeleteLessonSchema(req.params);
-        const lessonData = await deleteLessonById(validatedValue.id);
+        const validatedValue = await validateDeleteLessonSchema(lessonId);
+        const lessonData = await deleteLessonById(validatedValue, userId);
         res.json({msg:"Lesson deleted successfully!!"});
     }catch(err){
+      console.log(err);
         res.status(400).json({err});
     }
-
 });
 
 module.exports = router;

@@ -89,8 +89,7 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
-    const { studentId } = req.params;
-    const { lessonId } = req.params;
+    const { studentId,lessonId } = req.params;
     try { 
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
@@ -126,6 +125,7 @@ router.patch("/:userId/lupdatelesson/:lessonId", async (req, res)=>{
   }
 });
 
+/*מחיקת משתמש*/
 router.delete("/:id", async (req, res)=>{
     try{
         const validatedValue = await validateDeleteUserSchema(req.params);
@@ -147,7 +147,6 @@ router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
     // const deletedLesson = await deleteLessonById(lessonId);
     theUser.mylessons=theUser.mylessons.filter(el => { 
       return el._id != lessonId});
-
     await theUser.save();
     res.status(201).json("lesson removed to mylessons");
   } catch (err) {
