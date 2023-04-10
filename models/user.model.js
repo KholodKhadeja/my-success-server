@@ -47,6 +47,7 @@ const updateUserById=(id, newData)=>{
 
 
  const updateUserLessonById=(userId,lessonUpdate)=>{
+    console.log("entered the update funtion");
     return User.findByIdAndUpdate(userId,lessonUpdate, { new: true })};
 
     // const update = { $push: { "mylessons.$": lessonId} };
