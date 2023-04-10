@@ -75,8 +75,7 @@ router.post('/:userId/mylessons', async (req, res) => {
 
   /*assign lesson to student*/
   router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
-    const { studentId } = req.params;
-    const { lessonId } = req.params;
+    const { studentId, lessonId  } = req.params;
     const theUser = await getUserById(studentId);
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
@@ -118,23 +117,17 @@ router.patch("/", async (req, res)=>{
 });
 
 
-router.patch("/:userId/lessons/:lessonId", async (req, res)=>{
+router.post("/:userId/lupdatelesson/:lessonId", async (req, res)=>{
   try{
-    console.log(req.params);
     const userId= req.params.userId;
     const lessonId = req.params.lessonId;
     const updatedData = req.body;
-    console.log("updated", updatedData);
     const updatedLesson = updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
     res.json({msg:"updated lesson successfully!!"});
-    console.log(updatedLesson);
   } catch (error) {
     res.status(500).json({ message: 'Failed to update lesson' });
   }
 });
-
-
-
 
 router.delete("/:id", async (req, res)=>{
     try{
@@ -147,6 +140,7 @@ router.delete("/:id", async (req, res)=>{
 });
 
 /*deleting the lesson premenantly for the user and from the lessons array itself*/
+/*this was delete instead of patch*/
 router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
   const { userId, lessonId } = req.params;
   try { 
@@ -154,11 +148,8 @@ router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
     // const deletedLesson = await deleteLessonById(lessonId);
-    console.log(theUser);
     theUser.mylessons=theUser.mylessons.filter(el => { 
-      console.log( el._id != lessonId);
       return el._id != lessonId});
-    console.log("after", theUser);
     await theUser.save();
     res.status(201).json("lesson removed to mylessons");
   } catch (err) {

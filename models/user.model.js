@@ -49,6 +49,7 @@ const updateUserById=(id, newData)=>{
     const updateUserFavLessonById=(id,favlessons)=>{
         return User.findByIdAndUpdate(id,favlessons, { new: true })};
 
+        /*update user lesson - user id */
     const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
         const filter = { teacherId:userId, 'mylessons._id': lessonId };
         const update = { $set: { "mylessons.$": updatedData} };
