@@ -59,12 +59,13 @@ router.patch("/", authMiddleware ,async (req, res) => {
             validatedValues.hour,
             validatedValues.date,
             validatedValues.students,
-            validatedValue.zoomLink,);
+            validatedValue.zoomLink);
         } else {
           throw "operation invalid aka unauthorized";
         }
         res.status(201).json({ msg: "put proccessed" });
       } catch (err) {
+        console.log(err);
         res.status(400).json({ error: err });
       }
 });
