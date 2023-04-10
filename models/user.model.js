@@ -58,17 +58,18 @@ const updateUserById=(id, newData)=>{
 //       });
 //     };
 
-    const updateUserLessonById=(userId, lessonId)=>{
-        const filter = { _id:userId };
-        const update = { $push: { "mylessons.$": lessonId} };
-        const options = { new: true };
-        User.findByIdAndUpdate(filter, update, options)
-          .then(updatedUser => {
-            console.log('Updated user:', updatedUser);
-          })
-          .catch(error => {
-            console.error('Failed to update user:', error);
-          });
+    const updateUserLessonById=(userId, lessonUpdate)=>{
+        return User.findByIdAndUpdate(userId, lessonUpdate, { new: true })
+        // const filter = { _id:userId };
+        // const update = { $push: { "mylessons.$": lessonId} };
+        // const options = { new: true };
+        // User.findByIdAndUpdate(filter, update, options)
+        //   .then(updatedUser => {
+        //     console.log('Updated user:', updatedUser);
+        //   })
+        //   .catch(error => {
+        //     console.error('Failed to update user:', error);
+        //   });
         };
 
 

@@ -49,17 +49,19 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
 //       });
 //     }
 
-    const addStudentToStudentArrayOfaLesson=(userId, lessonId)=>{
-        const filter = { _id:lessonId };
-        const update = { $push: { "students.$": userId} };
-        const options = { new: true };
-        Lesson.findByIdAndUpdate(filter, update, options)
-          .then(updatedUser => {
-            console.log('Updated lesson:', updatedUser);
-          })
-          .catch(error => {
-            console.error('Failed to update lesson:', error);
-          });
+    const addStudentToStudentArrayOfaLesson=(lessonId, userUpdate)=>{
+                return Lesson.findByIdAndUpdate(lessonId,userUpdate, { new: true })
+        // const filter = { _id:lessonId };
+        // const update = { $push: { "students.$": userId} };
+        // const options = { new: true };
+        // Lesson.findByIdAndUpdate(filter, update, options)
+        //   .then(updatedUser => {
+        //     console.log('Updated lesson:', updatedUser);
+        //   })
+        //   .catch(error => {
+        //     console.error('Failed to update lesson:', error);
+        //   });
+
         };
 
 

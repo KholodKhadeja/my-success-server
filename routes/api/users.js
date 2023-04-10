@@ -79,8 +79,8 @@ router.post('/:userId/mylessons', async (req, res) => {
     try { 
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-      const updatedUser= await updateUserLessonById(studentId,lessonId);/*هاي بتضيف الطالب عند قائمة طلاب الدرس */
-      // const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,studentId);
+      const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} });/*هاي بتضيف الطالب عند قائمة طلاب الدرس */
+      const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:userId} });
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
