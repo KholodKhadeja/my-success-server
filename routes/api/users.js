@@ -12,7 +12,7 @@ const { selectAllUsers,
     updateUserLessonById,
     updateUserById,
     deleteUserById,
-    updateUserFavLessonById,
+    updateUserFavLessonById,updateUserMyLessonById,
     getUserById} = require("../../models/user.model");
 const {
     validateDeleteUserSchema, 
@@ -39,7 +39,6 @@ router.get("/getuserbyid/:id", async (req, res) => {
       res.status(400).json({ error: err });
     }
   });
-
 
 router.post("/", async (req, res)=>{
     try{
@@ -76,7 +75,7 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   /*assign lesson to student*/ /*doesnt WORK*/
-  router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
+  router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
       const theUser = await getUserById(studentId);
