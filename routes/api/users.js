@@ -74,22 +74,21 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   /*assign lesson to student*/
-  
-  router.post('/:studentId/mylessons/:lessonId', async (req, res) => {
+  router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
     const { studentId } = req.params;
     const { lessonId } = req.params;
     const theUser = await getUserById(studentId);
-    const theLesson = await getLessonById(lessonId);
     try { 
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    /*in the array of a student*/
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
       const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId} } );
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   });
+
 
   router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
     const { studentId } = req.params;
