@@ -75,12 +75,10 @@ router.post('/:userId/mylessons', async (req, res) => {
 
   /*assign lesson to student*/
   router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
-    console.log("Im in the router");
     const { studentId, lessonId  } = req.params;
-    console.log(studentId, lessonId);
-    // const theUser = await getUserById(studentId);
     try { 
-    // if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+      const theUser = await getUserById(studentId);
+    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
       const updatedUser= await updateUserLessonById(studentId,{ $push: { mylessons:lessonId} } );
       console.log(updateUserById);
       const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $push: { students:studentId}});
