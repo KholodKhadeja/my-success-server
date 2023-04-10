@@ -74,7 +74,7 @@ router.post('/:userId/mylessons', async (req, res) => {
   });
 
   /*assign lesson to student*/ /*doesnt WORK*/
-  router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
+  router.post('/:studentId/assignlesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
       const theUser = await getUserById(studentId);
