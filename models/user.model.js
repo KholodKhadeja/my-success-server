@@ -46,18 +46,20 @@ const updateUserById=(id, newData)=>{
 
 
 
- const updateUserLessonById=(userId,lessonId)=>{
-    const update = { $push: { "mylessons.$": lessonId} };
-    const options = { new: true };
-    User.findByIdAndUpdate({_id:userId}, update, options)
-      .then(updatedUser => {
-        console.log('Lesson added to user:', updatedUser);
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Failed to update user:', error);
-      });
-    };
+ const updateUserLessonById=(userId,lessonUpdate)=>{
+    return User.findByIdAndUpdate(userId,lessonUpdate, { new: true })};
+
+    // const update = { $push: { "mylessons.$": lessonId} };
+    // const options = { new: true };
+    // User.findByIdAndUpdate({_id:userId}, update, options)
+    //   .then(updatedUser => {
+    //     console.log('Lesson added to user:', updatedUser);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     console.error('Failed to update user:', error);
+    //   });
+    // };
 
     const updateUserMyLessonById=async (userId, mylessonUpdate)=>{
        return User.findOneAndUpdate(userId,mylessonUpdate, { new: true });
