@@ -53,7 +53,7 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
         const filter = { id:lessonId };
         const update = { $push: { "students.$": userId} };
         const options = { new: true };
-        Lesson.findOneAndUpdate(filter, update, options)
+        Lesson.findByIdAndUpdate(filter, update, options)
           .then(updatedUser => {
             console.log('Updated lesson:', updatedUser);
           })

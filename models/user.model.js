@@ -62,7 +62,7 @@ const updateUserById=(id, newData)=>{
         const filter = { id:userId };
         const update = { $push: { "mylessons.$": lessonId} };
         const options = { new: true };
-        User.findOneAndUpdate(filter, update, options)
+        User.findByIdAndUpdate(filter, update, options)
           .then(updatedUser => {
             console.log('Updated user:', updatedUser);
           })
