@@ -13,7 +13,7 @@ set: (v) => {  const d = new Date(); const [hours, minutes] = v.split(":"); d.se
 date:{ type: Date,required:true, min: new Date().toISOString().slice(0, 10),},
 students:[{type: Schema.Types.ObjectId,ref: "users"}],
 teacherId: {type:String},
-zoomLink:{ type: String, match: /^https?:\/\//i},
+zoomLink:{ type: String},
 });
 LessonSchema.pre(/^find/,function(next){
     this.populate({path:'students'})
