@@ -73,7 +73,7 @@ router.post('/:userId/mylessons', async (req, res) => {
     }
   });
 
-  /*assign lesson to student*/
+  /*assign lesson to student*/ /*doesnt WORK*/
   router.patch('/:studentId/assignlesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
@@ -92,12 +92,13 @@ router.post('/:userId/mylessons', async (req, res) => {
   router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
     const { studentId } = req.params;
     const { lessonId } = req.params;
-    const theUser = await getUserById(studentId);
     try { 
+      const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-      const updatedUser= await updateUserLessonById(studentId,{ $push: { favlessons:lessonId} } );
+      const updatedUser= await updateUserFavLessonById(studentId,{ $push: { favlessons:lessonId} } );
       res.status(201).json("lesson added to student fav successfully");
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   });
