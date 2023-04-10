@@ -73,7 +73,6 @@ router.post('/:userId/mylessons', async (req, res) => {
       res.status(500).json(err);
     }
   });
-
   /*assign lesson to student*/ /*doesnt WORK*/
   router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
