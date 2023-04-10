@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const learningLevelEnum = require("../enum/LearningLevel.Enum");
-const {User} = require("../models/user.model");
-
+const {User,getUserById} = require("../models/user.model");
 
 const LessonSchema = new Schema({
 subject:{type:String, required:true},
@@ -49,7 +48,9 @@ const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink
 
 const deleteLessonById = async(lessonId, userId)=>{
    const deletedLesson= await Lesson.findByIdAndDelete(lessonId);
-   const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { mylessons:lessonId } }, { new: true });
+   const user=getUserById(userId);
+   console.log(user);
+   const updatedUser = await User.findByIdAndUpdate({_id:userId}, { $pull: { mylessons:lessonId } }, { new: true });
    return updatedUser,deletedLesson;
 }
 
