@@ -55,7 +55,7 @@ const updateUserById=(id, newData)=>{
         console.error('Failed to update user:', error);
       });
        
-    return User.findByIdAndUpdate(id,mylessons, { new: true })};
+    // return User.findByIdAndUpdate(id,mylessons, { new: true })};
 
     const updateUserFavLessonById=(id,favlessons)=>{
         return User.findByIdAndUpdate(id,favlessons, { new: true })};
