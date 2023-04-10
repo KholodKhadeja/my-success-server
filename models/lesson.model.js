@@ -36,8 +36,18 @@ const createNewLesson = (subject,topic,learningLevel,hour,date,students,teacherI
     return lesson.save();
  }
 
-const addStudentToStudentArrayOfaLesson=(id,students)=>{
-    return Lesson.findByIdAndUpdate(id,students, { new: true })};
+const addStudentToStudentArrayOfaLesson=(lessonId,studentId)=>{
+    const update = { $push: { "student.$":studentId} };
+    const options = { new: true };
+    User.findOneAndUpdate({_id:lessonId}, update, options)
+      .then(updatedLesson => {
+        console.log('User added to student list:', updatedLesson);
+      })
+      .catch(error => {
+        console.log(error);
+        console.error('Failed to update students list:', error);
+      });
+    }
 
 const updateLessonById=(id,subject,topic,learningLevel,hour,date,students, zoomLink)=>{
    return Lesson.findByIdAndUpdate(id,{
