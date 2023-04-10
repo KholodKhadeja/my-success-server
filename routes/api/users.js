@@ -66,6 +66,7 @@ router.post('/:userId/mylessons', async (req, res) => {
          students: [],
          teacherId: {_id:userId}});
       lesson = await lesson.save();
+      console.log(lesson);
       const lessonId= lesson._id;
       const updatedUser=  updateUserLessonById(userId,{ $push: { mylessons: new ObjectId(lessonId)} } );
       res.status(201).json("lesson added to mylessons");
