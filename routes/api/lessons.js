@@ -69,7 +69,9 @@ router.patch("/", async (req, res) => {
 
 
 router.delete("/:lessonId", async (req, res) => {
-  const lessonId=req.params.lessonId;
+  const lessonId = {
+    _id: req.params.lessonId
+  };
   const userId= req.body.userId;
     try{
         const validatedValue = await validateDeleteLessonSchema(lessonId);
