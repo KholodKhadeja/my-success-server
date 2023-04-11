@@ -3,7 +3,7 @@ const router = express.Router();
 const authMiddleware = require("../../middleware/auth.middleware");
 const {User} = require("../../models/user.model");
 
-const {selectAllLessons,createNewLesson,updateLessonById,deleteLessonById,getLessonById,updateUserSpecificLessonByUserId} = require("../../models/lesson.model");
+const {selectAllLessons,createNewLesson,updateLessonById,deleteLessonById,getLessonById,addStuToStudentsArray} = require("../../models/lesson.model");
 const { validateDeleteLessonSchema,validateNewLessonSchema,
   validateUpdateLessonSchema,
   validateFindLessonByIdSchema,
@@ -80,6 +80,20 @@ router.delete("/:id/:userid", async (req, res) => {
       console.log(err);
         res.status(400).json({err});
     }
+});
+
+/*בעת הרשמת התלמיד שיופעל רואטר שני*/
+router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
+  const { studentId, lessonId  } = req.params;
+  try { 
+    const theUser = await getUserById(studentId);
+  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+  const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
+    res.status(201).json("lesson added to student successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
