@@ -81,8 +81,18 @@ const deleteUserById = (id)=>{
     };
 
     const deleteLessonFromMyLesson = async (userId, lessonId)=>{
-        const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { mylessons: mongoose.Types.ObjectId(lessonId) } }, { new: true });
-        return updatedUser;
+        try {
+            const updatedUser = await User.findByIdAndUpdate(
+              userId,
+              { $pull: { mylessons: mongoose.Types.ObjectId(lessonId) } },
+              { new: true }
+            );
+            return updatedUser;
+          } catch (error) {
+            // Handle any errors that may occur
+            console.error(error);
+            throw error;
+          }
     }
 module.exports={User,
     selectAllUsers,
