@@ -39,6 +39,11 @@ const addStudentToStudentArrayOfaLesson=(lessonId, userUpdate)=>{
     return Lesson.findByIdAndUpdate(lessonId,userUpdate, { new: true })
 };
 
+const addStuToStudentsArray=async (userId,lessonId)=>{
+    const updateLesson= await Lesson.findByIdAndUpdate(lessonId, { $push: { students:userId}});
+   return updateLesson;
+}
+   
 const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink)=>{
  const updatedLesson= await Lesson.findByIdAndUpdate(id,{subject,topic,learningLevel,hour,date, zoomLink})
  return updatedLesson;
@@ -51,7 +56,7 @@ const deleteLessonById = async(lessonId, userId)=>{
 
 
 module.exports={
-    Lesson,
+    Lesson,addStuToStudentsArray,
     selectAllLessons,
     createNewLesson,
     updateLessonById,

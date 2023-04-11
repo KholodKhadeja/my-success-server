@@ -4,7 +4,7 @@ const router = express.Router();
 const User= require("../../models/user.model");
 const {Lesson}=require("../../models/lesson.model");
 
-const { addStudentToStudentArrayOfaLesson, getLessonById, deleteLessonById } = require("../../models/lesson.model");
+const { addStudentToStudentArrayOfaLesson, getLessonById, deleteLessonById,addStuToStudentsArray } = require("../../models/lesson.model");
 const { selectAllUsers,
   updateUserSpecificLessonByUserId,
     createNewUser, 
@@ -80,6 +80,7 @@ router.post('/:userId/mylessons', async (req, res) => {
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser = await updateUserMyLessonById(studentId, lessonId);
+    const updateStudentArr = await addStuToStudentsArray(studentId, lessonId);
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
