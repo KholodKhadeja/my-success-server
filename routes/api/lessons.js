@@ -86,8 +86,6 @@ router.delete("/:id/:userid", async (req, res) => {
 router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
   const { studentId, lessonId  } = req.params;
   try { 
-    const theUser = await getUserById(studentId);
-  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
   const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
     res.status(201).json("lesson added to student successfully");
   } catch (err) {
