@@ -91,6 +91,5 @@ module.exports={User,
     getUserById,
     getUserByEmail,
     updatePasswordById,
-    updateUserSpecificLessonByUserId,
     updateUserFavLessonById,deleteLessonFromMyLesson
     };
