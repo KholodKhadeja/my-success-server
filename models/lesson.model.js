@@ -7,17 +7,17 @@ const LessonSchema = new Schema({
 subject:{type:String, required:true},
 topic:{type:String, required:true},
 learningLevel:{type:String,required:true},
-students:[{type: Schema.Types.ObjectId,ref: "users"}],
+students:{type:Array},
 hour:{type: Date,required: true,get: (v) => {return new Date(v).toISOString().slice(11, 16); },
 set: (v) => {  const d = new Date(); const [hours, minutes] = v.split(":"); d.setUTCHours(hours, minutes, 0, 0); return d;}},
 date:{ type: Date,required:true, min: new Date().toISOString().slice(0, 10),},
 teacherId: {type:String},
 zoomLink:{ type: String},
 });
-LessonSchema.pre(/^find/,function(next){
-    this.populate({path:'students'})
-    next()
-})
+// LessonSchema.pre(/^find/,function(next){
+//     this.populate({path:'students'})
+//     next()
+// })
 
 const Lesson= mongoose.model("lessons", LessonSchema);
 
