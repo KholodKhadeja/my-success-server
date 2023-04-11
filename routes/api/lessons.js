@@ -72,7 +72,6 @@ router.patch("/", async (req, res) => {
 router.delete("/:id/:userid", async (req, res) => {
   const lessonId = req.params.id;
   const userId= req.params.userid;
-  console.log(userId, lessonId);
     try{
         const lessonData = await deleteLessonById(lessonId, userId);
         const deletedLessonForUser = await deleteLessonFromMyLesson( userId,{ $pull: {mylessons:lessonId} });

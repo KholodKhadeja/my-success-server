@@ -144,15 +144,15 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
     try { 
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser = await updateUserMyLessonById(studentId, lessonId);
-    const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
-    console.log(updatedUser, "updatedUser");
-    console.log(updateStudentArr, "updated student array");
-      res.status(201).json("lesson added to student successfully");
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-    }
+    const [updatedUser, updatedLesson] = await Promise.all([
+      updateUserMyLessonById(studentId, lessonId),
+      addStuToStudentsArray(lessonId, studentId)
+    ]);
+    res.status(201).json("lesson added to student successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
   });
  /*cancel registration*/
 router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
