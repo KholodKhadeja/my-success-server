@@ -144,15 +144,14 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
     try { 
       const theUser = await getUserById(studentId);
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser = await updateUserMyLessonById(studentId, {$push: {mylessons:lessonId}});
-    const updateStudentArr = await addStuToStudentsArray(lessonId,{$push: {students:studentId}});
+    const updatedUser = await updateUserMyLessonById(studentId, lessonId);
+    const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   });
-
  /*cancel registration*/
 router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
   const { studentId, lessonId } = req.params;

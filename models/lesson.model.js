@@ -39,8 +39,8 @@ const addStudentToStudentArrayOfaLesson=(lessonId, userUpdate)=>{
     return Lesson.findByIdAndUpdate(lessonId,userUpdate, { new: true })
 };
 
-const addStuToStudentsArray=async (lessonId, addedStudent)=>{
-    const updateLesson= await Lesson.findByIdAndUpdate(lessonId, addedStudent, { new: true });
+const addStuToStudentsArray=async (lessonId, studentId)=>{
+    const updateLesson= await Lesson.findByIdAndUpdate(lessonId, {$push: {students:studentId}}, { new: true });
    return updateLesson;
 }
    
