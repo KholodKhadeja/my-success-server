@@ -139,7 +139,7 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
 
   /*assign lesson to student*/ 
   /*הלומד רושם את עצמו לשיעור*/
-  router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
+  router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
     const { studentId, lessonId  } = req.params;
     try { 
       const theUser = await getUserById(studentId);
