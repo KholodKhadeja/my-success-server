@@ -81,15 +81,5 @@ router.delete("/:id/:userid", async (req, res) => {
     }
 });
 
-/*בעת הרשמת התלמיד שיופעל רואטר שני*/
-router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
-  const { studentId, lessonId  } = req.params;
-  try { 
-    res.status(201).json("lesson added to student successfully");
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
 
 module.exports = router;
