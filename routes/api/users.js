@@ -146,7 +146,7 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser = await updateUserMyLessonById(studentId, lessonId);
     // const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
-    await LessonSchema.findByIdAndUpdate(
+    await Lesson.findByIdAndUpdate(
       lessonId,
       { $push: { students: studentId } },
       { new: true }
