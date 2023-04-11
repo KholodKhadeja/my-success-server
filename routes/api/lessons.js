@@ -39,7 +39,6 @@ router.post("/", authMiddleware ,async (req, res) => {
       validatedValue.learningLevel,
       validatedValue.hour,
       validatedValue.date,
-      validatedValue.students,
       validatedValue.zoomLink,
       req.userData.id);
     res.status(201).json({ msg: "Lesson added successfully!!" });
