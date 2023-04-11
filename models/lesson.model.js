@@ -56,7 +56,7 @@ const deleteLessonById = async(lessonId, userId)=>{
 
 
 module.exports={
-    Lesson,addStuToStudentsArray,
+    Lesson,LessonSchema,addStuToStudentsArray,
     selectAllLessons,
     createNewLesson,
     updateLessonById,

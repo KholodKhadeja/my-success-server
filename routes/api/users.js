@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const User= require("../../models/user.model");
-const {Lesson}=require("../../models/lesson.model");
+const {Lesson, LessonSchema}=require("../../models/lesson.model");
 
 const { addStudentToStudentArrayOfaLesson, getLessonById, deleteLessonById,addStuToStudentsArray } = require("../../models/lesson.model");
 const { selectAllUsers,
@@ -146,6 +146,11 @@ router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
     if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser = await updateUserMyLessonById(studentId, lessonId);
     // const updateStudentArr = await addStuToStudentsArray(lessonId,studentId);
+    await LessonSchema.findByIdAndUpdate(
+      lessonId,
+      { $push: { students: studentId } },
+      { new: true }
+    );
       res.status(201).json("lesson added to student successfully");
     } catch (err) {
       console.log(err);
