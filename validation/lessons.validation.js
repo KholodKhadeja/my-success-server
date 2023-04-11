@@ -32,7 +32,7 @@ const validateUpdateLessonSchema = (lessonInfo)=>{
 };
 
 const deleteLessonSchema = joi.object({
-    _id: joi.string().length(24).hex().required().trim(),
+    id: joi.string().length(24).hex().required().trim(),
   });
   const validateDeleteLessonSchema = (lessonInfo) => {
     return validate(deleteLessonSchema, lessonInfo);
