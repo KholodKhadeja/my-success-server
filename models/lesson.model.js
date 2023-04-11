@@ -39,9 +39,8 @@ const addStudentToStudentArrayOfaLesson=(lessonId, userUpdate)=>{
     return Lesson.findByIdAndUpdate(lessonId,userUpdate, { new: true })
 };
 
-const addStuToStudentsArray=async (lessonId, studentId)=>{
-    const updateLesson= await Lesson.findByIdAndUpdate(lessonId, studentId, { new: true });
-   return updateLesson;
+const addStuToStudentsArray= (lessonId, studentId)=>{
+    return  Lesson.findByIdAndUpdate(lessonId, studentId, { new: true });
 }
    
 const updateLessonById=async (id,subject,topic,learningLevel,hour,date, zoomLink)=>{
