@@ -86,7 +86,7 @@ router.delete("/:id/:userid", async (req, res) => {
 router.post('/:studentId/registertolesson/:lessonId', async (req, res) => {
   const { studentId, lessonId  } = req.params;
   try { 
-  const updateStudentArr = await addStuToStudentsArray(lessonId,{$push: {students:studentId}});
+    const updateStudentArr = await addStuToStudentsArray(lessonId, { $push: { students: studentId } });
     res.status(201).json("lesson added to student successfully");
   } catch (err) {
     console.log(err);
