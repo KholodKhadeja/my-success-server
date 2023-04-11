@@ -50,6 +50,7 @@ router.post("/", async (req, res)=>{
     }
 });
 
+/*מורה מוסיף שיעור*/
 router.post('/:userId/mylessons', async (req, res) => {
     const { userId } = req.params;
     let lesson = req.body;
@@ -73,33 +74,7 @@ router.post('/:userId/mylessons', async (req, res) => {
       res.status(500).json(err);
     }
   });
-  /*assign lesson to student*/ 
-  router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
-    const { studentId, lessonId  } = req.params;
-    try { 
-      const theUser = await getUserById(studentId);
-    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser = await updateUserMyLessonById(studentId, lessonId);
-    const updateStudentArr = await addStuToStudentsArray(studentId, lessonId);
-      res.status(201).json("lesson added to student successfully");
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-    }
-  });
 
-  router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
-    const { studentId,lessonId } = req.params;
-    try { 
-      const theUser = await getUserById(studentId);
-    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-      const updatedUser= await updateUserFavLessonById(studentId,{ $push: { favlessons:lessonId} } );
-      res.status(201).json("lesson added to student fav successfully");
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-    }
-  });
 /*update user details*/
 router.patch("/", async (req, res)=>{
     try{
@@ -112,18 +87,18 @@ router.patch("/", async (req, res)=>{
     }
 });
 
-
-router.patch("/:userId/lupdatelesson/:lessonId", async (req, res)=>{
-  try{
-    const userId= req.params.userId;
-    const lessonId = req.params.lessonId;
-    const updatedData = req.body;
-    const updatedLesson = updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
-    res.json({msg:"updated lesson successfully!!"});
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to update lesson' });
-  }
-});
+/*אני לא בטוחה שמשתמשת בזה בכלל*/
+// router.patch("/:userId/updatelesson/:lessonId", async (req, res)=>{
+//   try{
+//     const userId= req.params.userId;
+//     const lessonId = req.params.lessonId;
+//     const updatedData = req.body;
+//     const updatedLesson = updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
+//     res.json({msg:"updated lesson successfully!!"});
+//   } catch (error) {
+//     res.status(500).json({ message: 'Failed to update lesson' });
+//   }
+// });
 
 /*מחיקת משתמש*/
 router.delete("/:id", async (req, res)=>{
@@ -136,39 +111,47 @@ router.delete("/:id", async (req, res)=>{
     }
 });
 
-/*deleting the lesson premenantly for the user and from the lessons array itself*/
-/*this was delete instead of patch*/
-router.patch('/:userId/mylessons/:lessonId', async (req, res) => {
-  const { userId, lessonId } = req.params;
-  try { 
-    const theUser = await getUserById(userId);
-  if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser= await updateUserLessonById(userId,{ $pull: { mylessons: lessonId} } );
-    // const deletedLesson = await deleteLessonById(lessonId);
-    theUser.mylessons=theUser.mylessons.filter(el => { 
-      return el._id != lessonId});
-    await theUser.save();
-    res.status(201).json("lesson removed to mylessons");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-
+  /*שיעור מתווסף לרשימת מועדפים */
+  router.post('/:studentId/favlessons/:lessonId', async (req, res) => {
+    const { studentId,lessonId } = req.params;
+    try { 
+      const theUser = await getUserById(studentId);
+    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+      const updatedUser= await updateUserFavLessonById(studentId,{ $push: { favlessons:lessonId} } );
+      res.status(201).json("lesson added to student fav successfully");
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  });
  /*removing lesson from myfav array for a student*/
 router.delete('/:studentId/favlessons/:lessonId', async (req, res) => {
   const { studentId, lessonId } = req.params;
-  const theUser = await getUserById(studentId);
-  const theLesson = await getLessonById(lessonId);
   try { 
+    const theUser = await getUserById(studentId);
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
-    const updatedUser= await updateUserLessonById(studentId,{ $pull: { favlessons:lessonId} } );
-   const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $pull: { students:studentId} } );
+    const updatedUser= await updateUserFavLessonById(studentId,{ $pull: { favlessons:lessonId} } );
     res.status(201).json("lesson removed from fav successfully");
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+  /*assign lesson to student*/ 
+  /*הלומד רושם את עצמו לשיעור*/
+  router.patch('/:studentId/registertolesson/:lessonId', async (req, res) => {
+    const { studentId, lessonId  } = req.params;
+    try { 
+      const theUser = await getUserById(studentId);
+    if (!theUser) {return res.status(404).json({ error: 'User not found' });}
+    const updatedUser = await updateUserMyLessonById(studentId, {$push: {mylessons:lessonId}});
+    const updateStudentArr = await addStuToStudentsArray(lessonId,{$push: {students:studentId}});
+      res.status(201).json("lesson added to student successfully");
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  });
 
  /*cancel registration*/
 router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
@@ -177,7 +160,8 @@ router.delete('/:studentId/mylessons/:lessonId', async (req, res) => {
   try { 
   if (!theUser) {return res.status(404).json({ error: 'User not found' });}
     const updatedUser= await updateUserLessonById(studentId,{ $pull: { mylessons:lessonId} } );
-    res.status(201).json("lesson removed from fav successfully");
+    const updatedLesson = await addStudentToStudentArrayOfaLesson(lessonId,{ $pull: { students:studentId} } );
+    res.status(201).json("lesson removed from mylessons successfully");
   } catch (err) {
     res.status(500).json(err);
   }

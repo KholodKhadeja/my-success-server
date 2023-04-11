@@ -68,7 +68,7 @@ router.patch("/", async (req, res) => {
       }
 });
 
-
+/*מחיקת שיעור באופן סופי מהמערכת וגם אצל המורה */
 router.delete("/:id/:userid", async (req, res) => {
   const lessonId = req.params.id;
   const userId= req.params.userid;

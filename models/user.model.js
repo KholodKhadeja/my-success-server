@@ -49,8 +49,8 @@ const updateUserById=(id, newData)=>{
     return updatedUser;
  }
 
-const updateUserMyLessonById=async (userId,lessonId)=>{
-     const updatedUser = await User.findByIdAndUpdate(userId, { $push: { mylessons:lessonId} }, { new: true });
+const updateUserMyLessonById=async (userId,addedLesson)=>{
+     const updatedUser = await User.findByIdAndUpdate(userId, addedLesson, { new: true });
     return updatedUser;
  };
 
@@ -59,18 +59,18 @@ const updateUserMyLessonById=async (userId,lessonId)=>{
         return User.findByIdAndUpdate(id,favlessons, { new: true })};
 
         /*update user lesson - user id */
-    const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
-        const filter = { teacherId:userId, 'mylessons._id': lessonId };
-        const update = { $set: { "mylessons.$": updatedData} };
-        const options = { new: true };
-        User.findOneAndUpdate(filter, update, options)
-          .then(updatedUser => {
-            console.log('Updated user:', updatedUser);
-          })
-          .catch(error => {
-            console.error('Failed to update user:', error);
-          });
-        };
+    // const updateUserSpecificLessonByUserId=(userId, lessonId, updatedData)=>{
+    //     const filter = { teacherId:userId, 'mylessons._id': lessonId };
+    //     const update = { $set: { "mylessons.$": updatedData} };
+    //     const options = { new: true };
+    //     User.findOneAndUpdate(filter, update, options)
+    //       .then(updatedUser => {
+    //         console.log('Updated user:', updatedUser);
+    //       })
+    //       .catch(error => {
+    //         console.error('Failed to update user:', error);
+    //       });
+    //     };
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
@@ -84,7 +84,7 @@ const deleteUserById = (id)=>{
     }
 module.exports={User,
     selectAllUsers,
-    updateUserLessonById,updateUserMyLessonById,
+    updateUserLessonById,updateUserMyLessonById, 
     createNewUser, 
     updateUserById,
     deleteUserById,
