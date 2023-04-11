@@ -9,6 +9,7 @@ const newLessonSchema = joi.object({
     learningLevel:joi.string().valid(...learningLevelEnum).required(),
     hour:joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/).required(),
     date:joi.date().required().greater(Date.now() + 48 * 60 * 60 * 1000),
+    zoomLink: joi.string().uri(),
 });
 const validateNewLessonSchema = (lessonInfo)=>{
     return validate(newLessonSchema, lessonInfo);
@@ -21,6 +22,7 @@ const updateLessonSchema = joi.object({
     learningLevel:joi.string().valid(...learningLevelEnum).required(),
     hour:joi.string().required(),
     date:joi.date().required().greater(Date.now() + 48 * 60 * 60 * 1000),
+    zoomLink: joi.string().uri(),
 });
 
 const validateUpdateLessonSchema = (lessonInfo)=>{
