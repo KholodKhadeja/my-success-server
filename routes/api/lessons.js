@@ -8,6 +8,7 @@ const { validateDeleteLessonSchema,validateNewLessonSchema,
   validateUpdateLessonSchema,
   validateFindLessonByIdSchema,
 } = require("../../validation/lessons.validation");
+const {deleteLessonFromMyLesson} = require("../../models/user.model");
 
 router.get("/", async (req, res) => {
   try {
@@ -75,6 +76,7 @@ router.delete("/:id/:userid", async (req, res) => {
     try{
         // const validatedValue = await validateDeleteLessonSchema(lessonId);
         const lessonData = await deleteLessonById(lessonId, userId);
+        const deletedLessonForUser = await deleteLessonFromMyLesson(lessonId, userId);
         res.json({msg:"Lesson deleted successfully!!"});
     }catch(err){
       console.log(err);

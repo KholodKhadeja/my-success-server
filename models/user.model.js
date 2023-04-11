@@ -72,24 +72,6 @@ const updateUserMyLessonById=async (userId,lessonId)=>{
             console.error('Failed to update user:', error);
           });
         };
-        // const userLessons = getUserById(userId).mylessons;
-        // return userLessons.findOneAndUpdate(lessonId,updatedData, { new: true })};
-        // return User.findOneAndUpdate(
-        //     { _id: userId, "mylessons._id": lessonId },
-        //     { $set: { "mylessons.$[elem]": updatedData } },
-        //     { new: true,
-        //         arrayFilters: [{ "elem._id": lessonId }]
-        //      }
-        //   );
-        // return User.findByIdAndUpdate(
-        //     userId, 
-        //     { $set: { "mylessons.$[elem]": updatedData } },
-        //     { 
-        //       new: false,
-        //       arrayFilters: [{ "elem._id": lessonId }]
-        //     }
-        //   );
-        // };
 
 const deleteUserById = (id)=>{
     return User.findByIdAndDelete(id);}
@@ -97,6 +79,11 @@ const deleteUserById = (id)=>{
     const updatePasswordById=(id,password)=>{
         return User.findByIdAndUpdate(id,{ password });
     };
+
+    const deleteLessonFromMyLesson = async (userId, lessonId)=>{
+        const updatedUser = await User.findByIdAndUpdate(userId, { $pull: { mylessons:lessonId } }, { new: true });
+        return updatedUser;
+    }
 module.exports={User,
     selectAllUsers,
     updateUserLessonById,updateUserMyLessonById,
@@ -107,5 +94,5 @@ module.exports={User,
     getUserByEmail,
     updatePasswordById,
     updateUserSpecificLessonByUserId,
-    updateUserFavLessonById
+    updateUserFavLessonById,deleteLessonFromMyLesson
     };
