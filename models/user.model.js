@@ -80,19 +80,8 @@ const deleteUserById = (id)=>{
         return User.findByIdAndUpdate(id,{ password });
     };
 
-    const deleteLessonFromMyLesson = async (userId, lessonId)=>{
-        try {
-            const updatedUser = await User.findByIdAndUpdate(
-              userId,
-              { $pull: { mylessons: mongoose.Types.ObjectId(lessonId) } },
-              { new: true }
-            );
-            return updatedUser;
-          } catch (error) {
-            // Handle any errors that may occur
-            console.error(error);
-            throw error;
-          }
+    const deleteLessonFromMyLesson = async (userId, update)=>{
+        return User.findByIdAndUpdate(userId,update, { new: true })
     }
 module.exports={User,
     selectAllUsers,
