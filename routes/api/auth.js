@@ -49,29 +49,5 @@ router.post("/login", async(req, res)=>{
       }
 });
 
-router.post("/forgotpassword", async (req, res)=>{
-    try{
-    const validatedValue =await validateForgetPasswordSchema(req.body);
-    const userData = await getUserByEmail(validatedValue.email);
-    if(!userData) throw "check your inbox";
-    const jwt = getToken({email: userData.email},"1h"); /*expires in 1 hour*/
-    console.log("http://localhost:3000/resetpassword/" + jwt);
-    res.json({msg:"check your inbox"});}
-    catch(err){
-        res.json({msg:err});
-    }
-});
-
-router.post("/resetpassword/:id", async(req, res) =>{
-    try{
-        const payload = await verifyToken(req.params.token);
-        const userData = await getUserByEmail(payload.email);
-        if(!userData) throw "something went wrong";
-        await   updatePasswordById(userData._id, hashedPassword);
-        res.json({msg:"password updated"});
-    }catch(err){
-        res.status(400).json({ err });
-    }
-});
 
 module.exports = router;

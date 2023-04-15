@@ -87,18 +87,6 @@ router.patch("/", async (req, res)=>{
     }
 });
 
-/*אני לא בטוחה שמשתמשת בזה בכלל*/
-// router.patch("/:userId/updatelesson/:lessonId", async (req, res)=>{
-//   try{
-//     const userId= req.params.userId;
-//     const lessonId = req.params.lessonId;
-//     const updatedData = req.body;
-//     const updatedLesson = updateUserSpecificLessonByUserId(userId, lessonId, updatedData);
-//     res.json({msg:"updated lesson successfully!!"});
-//   } catch (error) {
-//     res.status(500).json({ message: 'Failed to update lesson' });
-//   }
-// });
 
 /*מחיקת משתמש*/
 router.delete("/:id", async (req, res)=>{
