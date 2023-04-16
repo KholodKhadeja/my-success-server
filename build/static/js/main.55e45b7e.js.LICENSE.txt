@@ -4,6 +4,22 @@
 	http://jedwatson.github.io/classnames
 */
 
+/*!
+         * The buffer module from node.js, for the browser.
+         *
+         * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+         * @license  MIT
+         */
+
+/*!
+        * The buffer module from node.js, for the browser.
+        *
+        * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+        * @license  MIT
+        */
+
+/*! https://mths.be/punycode v1.4.1 by @mathias */
+
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
@@ -86,3 +102,9 @@
  */
 
 //! moment.js
+
+//!! Deliberately using an API that's deprecated in node.js because
+
+//!! Discussion: github.com/node-browser-compat/atob/pull/9
+
+//!! this file is for browsers and we expect them to cope with it.
