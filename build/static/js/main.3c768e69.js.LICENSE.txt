@@ -101,8 +101,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-//! moment.js
-
 //!! Deliberately using an API that's deprecated in node.js because
 
 //!! Discussion: github.com/node-browser-compat/atob/pull/9

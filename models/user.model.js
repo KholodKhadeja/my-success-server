@@ -82,7 +82,8 @@ const deleteUserById = (id)=>{
     const deleteLessonFromMyLesson = async (userId, update)=>{
         return User.findByIdAndUpdate(userId,update, { new: true })
     }
-module.exports={User,
+module.exports={
+    User,
     selectAllUsers,
     updateUserLessonById,updateUserMyLessonById, 
     createNewUser, 
