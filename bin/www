@@ -41,6 +41,11 @@ mongoose.connect(process.env.CONSTR,{
   console.error('Error connecting to db: ', error);
 });
 
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
 function onError(error) {
   if (error.syscall !== 'listen') {
     console.log(error);
@@ -72,7 +77,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
