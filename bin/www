@@ -19,14 +19,22 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-connectToDB.then(() => {
-    debug("connected to db");
-  })
-  .catch((err) => {
-    debug("fatal error");
-    debug(err);
-    process.exit(1);
-  });
+// connectToDB.then(() => {
+//     debug("connected to db");
+//   })
+//   .catch((err) => {
+//     debug("fatal error");
+//     debug(err);
+//     process.exit(1);
+//   });
+mongoose.connect(process.env.CONSTR, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to db!');
+}).catch((error) => {
+  console.error('Error connecting to db: ', error);
+});
 
 server.listen(port);
 server.on('error', onError);
