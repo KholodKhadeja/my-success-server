@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../../middleware/auth.middleware");
-const {User} = require("../../models/user.model");
 
 const {selectAllLessons,createNewLesson,updateLessonById,deleteLessonById,getLessonById,addStuToStudentsArray} = require("../../models/lesson.model");
 const { validateDeleteLessonSchema,validateNewLessonSchema,

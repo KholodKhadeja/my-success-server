@@ -11,15 +11,15 @@ const userSchema = new Schema({
     role:{type:String,default: roleEnum[0], enum: [...roleEnum]},
     studentclass:{type:String},
     specialization:{type:String},
-    mylessons: {type:Array},
-    favlessons: {type:Array},
+    mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    favlessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
 })
-// userSchema.pre(/^find/,function(next){
-//     this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
-//     next()
-// })
+userSchema.pre(/^find/,function(next){
+    this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
+    next()
+})
 
 const User= mongoose.model("users", userSchema);
 
