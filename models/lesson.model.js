@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const learningLevelEnum = require("../enum/LearningLevel.Enum");
-const {User} = require("./user.model");
 
 const LessonSchema = new Schema({
 subject:{type:String, required:true},
@@ -63,5 +62,5 @@ module.exports={
     deleteLessonById,
 getLessonById,
 addStudentToStudentArrayOfaLesson,
-// updateUserSpecificLessonByUserId
+
     };

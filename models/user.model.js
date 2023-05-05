@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
-const { Lesson } = require("./lesson.model");
 
 const userSchema = new Schema({
     email:{type:String, required:true, unique: true},
