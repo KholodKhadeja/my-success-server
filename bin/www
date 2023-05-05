@@ -1,4 +1,3 @@
-
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -9,49 +8,31 @@ var debug = require('debug')('mysuccess-server:server');
 var http = require('http');
 const connectToDB = require("../models/connectToDB");
 
-process.on('uncaughtException', err => {
-  debug('uncaughtException');
-  debug(err.name, err.message);
-  debug(err);
-  debug('Shutting down');
-  server.close(() => {
-    process.exit(1);
-  });
-});
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+}
 
 var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 var server = http.createServer(app);
 
-connectToDB
-  .then(() => {
-    debug("connected to db");
-  })
-  .catch((err) => {
-    debug("fatal error");
-    debug(err);
-    process.exit(1);
-  });
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-    return port;
-  }
-
-  return false;
-}
-
+mongoose.connect("mongodb+srv://KholodKhadeja3:shesmo1996@mysuccessdb.5wg07z4.mongodb.net/mysuccessdb?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to db!');
+}).catch((error) => {
+  console.error('Error connecting to db: ', error);
+});
 
 function onError(error) {
   if (error.syscall !== 'listen') {
@@ -63,7 +44,6 @@ function onError(error) {
     ? 'Pipe ' + port
     : 'Port ' + port;
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -85,3 +65,15 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+process.on('uncaughtException', err => {
+  console.log(err);
+  debug('uncaughtException');
+  debug(err.name, err.message);
+  debug(err);
+  debug('Shutting down');
+  server.close(() => {
+    process.exit(1);
+  });
+});
