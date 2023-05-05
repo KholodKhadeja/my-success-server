@@ -1,5 +1,6 @@
 
 var app = require('../app');
+const mongoose = require('mongoose');
 var debug = require('debug')('mysuccess-server:server');
 var http = require('http');
 const connectToDB = require("../models/connectToDB");
@@ -27,7 +28,12 @@ var server = http.createServer(app);
 //     debug(err);
 //     process.exit(1);
 //   });
-mongoose.connect(process.env.CONSTR, {
+
+// server.listen(port);
+// server.on('error', onError);
+// server.on('listening', onListening);
+
+mongoose.createConnection(process.env.CONSTR, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
@@ -36,33 +42,13 @@ mongoose.connect(process.env.CONSTR, {
   console.error('Error connecting to db: ', error);
 });
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    return val;
-  }
-
-  if (port >= 0) {
-    return port;
-  }
-  return false;
-}
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
-
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
-
-
   switch (error.code) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
@@ -78,10 +64,20 @@ function onError(error) {
 }
 
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  const addr = server.address();
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+  console.log(`Listening on ${bind}`);
 }
 
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    return val;
+  }
+}
