@@ -20,27 +20,27 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-// connectToDB.then(() => {
-//     debug("connected to db");
-//   })
-//   .catch((err) => {
-//     debug("fatal error");
-//     debug(err);
-//     process.exit(1);
-//   });
+connectToDB.then(() => {
+    debug("connected to db");
+  })
+  .catch((err) => {
+    debug("fatal error");
+    debug(err);
+    process.exit(1);
+  });
 
-// server.listen(port);
-// server.on('error', onError);
-// server.on('listening', onListening);
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-mongoose.createConnection(process.env.CONSTR, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Connected to db!');
-}).catch((error) => {
-  console.error('Error connecting to db: ', error);
-});
+// mongoose.createConnection(process.env.CONSTR, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// }).then(() => {
+//   console.log('Connected to db!');
+// }).catch((error) => {
+//   console.error('Error connecting to db: ', error);
+// });
 
 function onError(error) {
   if (error.syscall !== 'listen') {
