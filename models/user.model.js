@@ -17,10 +17,10 @@ const userSchema = new Schema({
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
 })
-/* userSchema.pre(/^find/,function(next){
+userSchema.pre(/^find/,function(next){
     this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
     next()
-}) */
+})
 
 const User= mongoose.model("users", userSchema);
 
