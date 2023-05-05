@@ -5,7 +5,6 @@ var debug = require('debug')('mysuccess-server:server');
 var http = require('http');
 const connectToDB = require("../models/connectToDB");
 
-
 process.on('uncaughtException', err => {
   console.log(err);
   debug('uncaughtException');
