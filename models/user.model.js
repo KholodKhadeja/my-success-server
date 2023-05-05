@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const roleEnum = require("../enum/Role.Enum");
 const { Lesson } = require("./lesson.model");
-// const {Lesson } = require("../models/lesson.model");
 
 const userSchema = new Schema({
     email:{type:String, required:true, unique: true},
@@ -12,15 +11,15 @@ const userSchema = new Schema({
     role:{type:String,default: roleEnum[0], enum: [...roleEnum]},
     studentclass:{type:String},
     specialization:{type:String},
-    mylessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
-    favlessons: [{type: Schema.Types.ObjectId,ref: "lessons"}],
+    mylessons: {type:Array},
+    favlessons: {type:Array},
     profileImg: { type: String, match: /^https?:\/\//i},
     userstatus:{type: Boolean, default: true,required:true}
 })
-userSchema.pre(/^find/,function(next){
-    this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
-    next()
-})
+// userSchema.pre(/^find/,function(next){
+//     this.populate({path:'mylessons'}).populate({ path: 'favlessons' });
+//     next()
+// })
 
 const User= mongoose.model("users", userSchema);
 
